@@ -163,6 +163,32 @@ section { padding: 5rem 2rem; }
 .extra-links { display: flex; gap: 0.6rem; margin-top: 0.75rem; flex-wrap: wrap; }
 
 .contact-section { background: var(--navy); color: var(--white); text-align: center; }
+
+.award-cert-link { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 600; color: var(--accent); text-decoration: none; margin-top: 0.4rem; transition: color var(--transition); }
+.award-cert-link:hover { color: var(--gold); }
+
+.edu-link { color: var(--accent); text-decoration: none; font-weight: 600; transition: color var(--transition); }
+.edu-link:hover { color: var(--gold); }
+
+.personal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.interests-list { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.interest-item { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--beige); border: 1px solid var(--beige-mid); border-radius: 10px; padding: 0.6rem 1.1rem; font-size: 0.88rem; color: var(--slate); font-weight: 500; transition: all var(--transition); }
+.interest-item:hover { border-color: var(--accent); transform: translateY(-1px); }
+.interest-icon { font-size: 1.1rem; }
+
+.lang-cards { display: flex; flex-direction: column; gap: 1rem; }
+.lang-card { background: var(--beige); border: 1px solid var(--beige-mid); border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; }
+.lang-flag { font-size: 1.5rem; }
+.lang-name { font-weight: 700; font-size: 0.95rem; }
+.lang-level { font-size: 0.8rem; color: var(--steel); }
+.lang-bar-container { flex: 1; height: 6px; background: var(--beige-mid); border-radius: 3px; overflow: hidden; margin-left: auto; max-width: 120px; }
+.lang-bar { height: 100%; border-radius: 3px; }
+.lang-bar.native { width: 100%; background: var(--accent); }
+.lang-bar.professional { width: 80%; background: var(--gold); }
+
+@media (max-width: 900px) {
+  .personal-grid { grid-template-columns: 1fr; }
+}
 .contact-section .section-label { color: var(--gold-light); }
 .contact-section .section-label::before { background: var(--gold-light); }
 .contact-section .section-title { color: var(--beige); }
@@ -416,8 +442,8 @@ section { padding: 5rem 2rem; }
       <div class="award-card"><div class="award-icon">🥈</div><div><h4>2nd Place: Cost Optimisation</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024</div></div></div>
       <div class="award-card"><div class="award-icon">🥈</div><div><h4>2nd Place: Innovation</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024</div></div></div>
       <div class="award-card"><div class="award-icon">🥇</div><div><h4>Project of the Year: Digital Transformation</h4><div class="award-org">Kibar Holding Asım Kibar Mavi Damla Awards</div><div class="award-year">2023</div></div></div>
-      <div class="award-card"><div class="award-icon">🎓</div><div><h4>WMG Excellence Scholarship</h4><div class="award-org">University of Warwick · Top 5% of applicants</div><div class="award-year">2025</div></div></div>
-      <div class="award-card"><div class="award-icon">🥉</div><div><h4>3rd Place: AWS PartyRock GenAI Hackathon</h4><div class="award-org">Sustainability Track · RE:GEN Project</div><div class="award-year">2025</div></div></div>
+      <div class="award-card"><div class="award-icon">🎓</div><div><h4>WMG Excellence Scholarship</h4><div class="award-org">University of Warwick · Top 5% of applicants</div><div class="award-year">2025</div><a href="#" class="award-cert-link">📜 View Certificate</a></div></div>
+      <div class="award-card"><div class="award-icon">🥉</div><div><h4>3rd Place: AWS PartyRock GenAI Hackathon</h4><div class="award-org">Sustainability Track · RE:GEN Project</div><div class="award-year">2025</div><a href="#" class="award-cert-link">📜 View Certificate</a></div></div>
     </div>
   </div>
 </section>
@@ -451,6 +477,7 @@ section { padding: 5rem 2rem; }
             <li>Globally ranked Top 400 for Engineering &amp; Technology</li>
             <li>Thesis: Detection of Cervical Cancer Using Deep Learning Techniques</li>
             <li>Core Modules: Linear Algebra, Statistics, Optimisation Methods, Numerical Analysis, Deep Learning</li>
+            <li><a href="#" class="edu-link">📄 View Transcript</a></li>
           </ul>
         </div>
       </div>
@@ -506,13 +533,55 @@ section { padding: 5rem 2rem; }
   </div>
 </section>
 
+<section>
+  <div class="section-inner fade-up">
+    <div class="section-label">Personal</div>
+    <h2 class="section-title">Interests &amp; Languages</h2>
+    <div class="personal-grid">
+      <div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;">Hobbies &amp; Interests</h3>
+        <div class="interests-list">
+          <div class="interest-item"><span class="interest-icon">🎹</span> Playing Piano</div>
+          <div class="interest-item"><span class="interest-icon">🌿</span> Nature Walking</div>
+          <div class="interest-item"><span class="interest-icon">🧠</span> Psychology &amp; Human Behaviour</div>
+          <div class="interest-item"><span class="interest-icon">🏊</span> Swimming</div>
+          <div class="interest-item"><span class="interest-icon">🎵</span> Music &amp; Festivals</div>
+          <div class="interest-item"><span class="interest-icon">⛺</span> Camping</div>
+          <div class="interest-item"><span class="interest-icon">🏐</span> Volleyball</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;">Languages</h3>
+        <div class="lang-cards">
+          <div class="lang-card">
+            <span class="lang-flag">🇹🇷</span>
+            <div>
+              <div class="lang-name">Turkish</div>
+              <div class="lang-level">Native</div>
+            </div>
+            <div class="lang-bar-container"><div class="lang-bar native"></div></div>
+          </div>
+          <div class="lang-card">
+            <span class="lang-flag">🇬🇧</span>
+            <div>
+              <div class="lang-name">English</div>
+              <div class="lang-level">Professional</div>
+            </div>
+            <div class="lang-bar-container"><div class="lang-bar professional"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="contact" class="contact-section">
   <div class="section-inner fade-up">
     <div class="section-label">Get in Touch</div>
     <h2 class="section-title">Let's Work Together</h2>
     <p class="section-desc">Available from September 2026. Eligible for UK Graduate Route. No sponsorship required.</p>
     <div class="contact-links">
-      <a href="mailto:bagcialara@gmail.com" class="contact-link">✉️ bagcialara@gmail.com</a>
+      <a href="/cdn-cgi/l/email-protection#0a686b6d69636b666b786b4a6d676b636624696567" class="contact-link">✉️ <span class="__cf_email__" data-cfemail="44262523272d2528253625042329252d286a272b29">[email&#160;protected]</span></a>
       <a href="https://linkedin.com/in/alarabagci" class="contact-link" target="_blank">💼 LinkedIn</a>
       <a href="https://github.com/alarabagci" class="contact-link" target="_blank">🐙 GitHub</a>
       <a href="tel:+447453585950" class="contact-link">📱 +44 7453 585950</a>
@@ -522,15 +591,11 @@ section { padding: 5rem 2rem; }
 
 <footer class="footer">&copy; 2026 Alara Bağcı. Built with care.</footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 20); });
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 hamburger.addEventListener('click', () => { navLinks.classList.toggle('open'); });
 navLinks.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => navLinks.classList.remove('open')); });
-const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-</script>
-</body>
-</html>
+const observer = new Intersection
