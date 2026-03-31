@@ -8,29 +8,14 @@
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
-  --navy: #0B1D33;
-  --navy-light: #132D4F;
-  --slate: #3A4F6A;
-  --steel: #64748B;
-  --mist: #94A3B8;
-  --cloud: #CBD5E1;
-  --ice: #E2E8F0;
-  --snow: #F1F5F9;
-  --white: #FFFFFF;
-  --beige: #FAF7F2;
-  --beige-dark: #F0EBE3;
-  --beige-mid: #E8E0D4;
-  --warm-gray: #B8AFA5;
-  --accent: #1B3A5C;
-  --accent-light: #2A5580;
-  --accent-glow: rgba(27, 58, 92, 0.10);
-  --gold: #B8860B;
-  --gold-light: #D4A017;
-  --gold-glow: rgba(184, 134, 11, 0.10);
+  --navy: #0B1D33; --navy-light: #132D4F; --slate: #3A4F6A; --steel: #64748B;
+  --mist: #94A3B8; --cloud: #CBD5E1; --ice: #E2E8F0; --snow: #F1F5F9; --white: #FFFFFF;
+  --beige: #FAF7F2; --beige-dark: #F0EBE3; --beige-mid: #E8E0D4; --warm-gray: #B8AFA5;
+  --accent: #1B3A5C; --accent-light: #2A5580; --accent-glow: rgba(27,58,92,0.10);
+  --gold: #B8860B; --gold-light: #D4A017; --gold-glow: rgba(184,134,11,0.10);
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'DM Sans', -apple-system, sans-serif;
-  --max-w: 1120px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --max-w: 1120px; --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 html { scroll-behavior: smooth; }
 body { font-family: var(--font-body); color: var(--navy); background: var(--white); line-height: 1.65; -webkit-font-smoothing: antialiased; }
@@ -40,16 +25,25 @@ body { font-family: var(--font-body); color: var(--navy); background: var(--whit
 .nav-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 64px; }
 .nav-logo { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--navy); text-decoration: none; letter-spacing: -0.02em; }
 .nav-logo span { color: var(--gold); }
-.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
 .nav-links a { text-decoration: none; color: var(--slate); font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; text-transform: uppercase; transition: color var(--transition); position: relative; }
 .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width var(--transition); }
 .nav-links a:hover { color: var(--accent); }
 .nav-links a:hover::after { width: 100%; }
 .hamburger { display: none; background: none; border: none; cursor: pointer; width: 28px; height: 20px; position: relative; z-index: 110; }
 .hamburger span { display: block; width: 100%; height: 2px; background: var(--navy); position: absolute; left: 0; transition: var(--transition); }
-.hamburger span:nth-child(1) { top: 0; }
-.hamburger span:nth-child(2) { top: 9px; }
-.hamburger span:nth-child(3) { top: 18px; }
+.hamburger span:nth-child(1) { top: 0; } .hamburger span:nth-child(2) { top: 9px; } .hamburger span:nth-child(3) { top: 18px; }
+
+/* Language Switcher */
+.lang-switcher { position: relative; }
+.lang-btn { display: flex; align-items: center; gap: 0.35rem; background: var(--beige); border: 1px solid var(--beige-mid); border-radius: 8px; padding: 0.35rem 0.7rem; font-size: 0.8rem; font-weight: 600; color: var(--slate); cursor: pointer; transition: all var(--transition); font-family: var(--font-body); }
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+.lang-btn::after { content: ''; display: none; } /* override nav link underline */
+.lang-dropdown { position: absolute; top: calc(100% + 8px); right: 0; background: var(--white); border: 1px solid var(--beige-mid); border-radius: 10px; box-shadow: 0 8px 24px rgba(11,29,51,0.1); overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: all 0.2s ease; min-width: 150px; z-index: 200; }
+.lang-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+.lang-option { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 1rem; font-size: 0.85rem; color: var(--slate); cursor: pointer; transition: background 0.15s; text-decoration: none; font-weight: 500; }
+.lang-option:hover { background: var(--beige); }
+.lang-option.active { color: var(--accent); font-weight: 700; background: var(--accent-glow); }
 
 .hero { min-height: 100vh; display: flex; align-items: center; background: var(--navy); position: relative; overflow: hidden; }
 .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 70% 20%, rgba(42,85,128,0.35) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(184,134,11,0.12) 0%, transparent 50%); pointer-events: none; }
@@ -69,7 +63,6 @@ body { font-family: var(--font-body); color: var(--navy); background: var(--whit
 .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(184,134,11,0.3); }
 .btn-outline { background: transparent; color: var(--beige); border: 1.5px solid rgba(255,255,255,0.2); }
 .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
-
 .hero-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2rem; backdrop-filter: blur(8px); }
 .hero-card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
 .hero-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%); display: flex; align-items: center; justify-content: center; color: var(--white); font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; overflow: hidden; position: relative; }
@@ -86,7 +79,6 @@ section { padding: 5rem 2rem; }
 .section-label::before { content: ''; width: 24px; height: 2px; background: var(--accent); }
 .section-title { font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; line-height: 1.25; }
 .section-desc { font-size: 1.05rem; color: var(--steel); max-width: 640px; margin-bottom: 3rem; }
-
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
 .about-text p { color: var(--slate); margin-bottom: 1rem; }
 .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -94,7 +86,6 @@ section { padding: 5rem 2rem; }
 .about-highlight-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
 .about-highlight h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
 .about-highlight p { font-size: 0.8rem; color: var(--steel); }
-
 .bg-alt { background: var(--beige); }
 .timeline { position: relative; padding-left: 2rem; }
 .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--beige-mid); }
@@ -112,7 +103,6 @@ section { padding: 5rem 2rem; }
 .project-impact { font-size: 0.82rem !important; color: var(--navy) !important; font-weight: 600; }
 .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .tag { background: var(--beige); color: var(--steel); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 500; }
-
 .msc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .msc-card { background: var(--white); border: 1px solid var(--beige-mid); border-radius: 16px; padding: 2rem; transition: all var(--transition); position: relative; overflow: hidden; }
 .msc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%); }
@@ -129,7 +119,6 @@ section { padding: 5rem 2rem; }
 .msc-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); text-decoration: none; padding: 0.4rem 0.8rem; border-radius: 6px; background: var(--accent-glow); transition: all var(--transition); }
 .msc-link:hover { background: var(--accent); color: var(--white); }
 .msc-link.disabled { opacity: 0.45; cursor: default; pointer-events: none; }
-
 .awards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
 .award-card { background: var(--white); border: 1px solid var(--beige-mid); border-radius: 12px; padding: 1.5rem; display: flex; gap: 1rem; align-items: start; transition: all var(--transition); }
 .award-card:hover { border-color: var(--gold); }
@@ -137,7 +126,8 @@ section { padding: 5rem 2rem; }
 .award-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
 .award-card .award-org { font-size: 0.8rem; color: var(--steel); }
 .award-card .award-year { font-size: 0.7rem; color: var(--mist); margin-top: 0.2rem; }
-
+.award-cert-link { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 600; color: var(--accent); text-decoration: none; margin-top: 0.4rem; transition: color var(--transition); }
+.award-cert-link:hover { color: var(--gold); }
 .edu-cards { display: grid; gap: 1.5rem; }
 .edu-card { background: var(--white); border: 1px solid var(--beige-mid); border-radius: 16px; padding: 2rem; display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: start; }
 .edu-icon { width: 56px; height: 56px; border-radius: 12px; background: var(--accent-glow); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
@@ -147,13 +137,13 @@ section { padding: 5rem 2rem; }
 .edu-bullets { list-style: none; margin-top: 0.5rem; }
 .edu-bullets li { font-size: 0.85rem; color: var(--slate); padding: 0.25rem 0 0.25rem 1.2rem; position: relative; line-height: 1.55; }
 .edu-bullets li::before { content: '\2022'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
-
+.edu-link { color: var(--accent); text-decoration: none; font-weight: 600; transition: color var(--transition); }
+.edu-link:hover { color: var(--gold); }
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
 .skill-group { background: var(--beige); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--beige-mid); }
 .skill-group h4 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; color: var(--navy); }
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .skill-tag { background: var(--white); color: var(--slate); font-size: 0.78rem; padding: 0.3rem 0.65rem; border-radius: 6px; border: 1px solid var(--beige-mid); font-weight: 500; }
-
 .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .extra-card { background: var(--white); border: 1px solid var(--beige-mid); border-radius: 12px; padding: 1.5rem; transition: all var(--transition); }
 .extra-card:hover { border-color: var(--accent); }
@@ -161,21 +151,19 @@ section { padding: 5rem 2rem; }
 .extra-card p { font-size: 0.85rem; color: var(--slate); line-height: 1.6; }
 .extra-card .extra-meta { font-size: 0.78rem; color: var(--mist); margin-top: 0.5rem; }
 .extra-links { display: flex; gap: 0.6rem; margin-top: 0.75rem; flex-wrap: wrap; }
-
 .contact-section { background: var(--navy); color: var(--white); text-align: center; }
-
-.award-cert-link { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 600; color: var(--accent); text-decoration: none; margin-top: 0.4rem; transition: color var(--transition); }
-.award-cert-link:hover { color: var(--gold); }
-
-.edu-link { color: var(--accent); text-decoration: none; font-weight: 600; transition: color var(--transition); }
-.edu-link:hover { color: var(--gold); }
-
+.contact-section .section-label { color: var(--gold-light); }
+.contact-section .section-label::before { background: var(--gold-light); }
+.contact-section .section-title { color: var(--beige); }
+.contact-section .section-desc { color: var(--cloud); margin-left: auto; margin-right: auto; }
+.contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+.contact-link { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: var(--cloud); padding: 0.75rem 1.25rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all var(--transition); }
+.contact-link:hover { background: rgba(255,255,255,0.12); color: var(--white); }
 .personal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
 .interests-list { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .interest-item { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--beige); border: 1px solid var(--beige-mid); border-radius: 10px; padding: 0.6rem 1.1rem; font-size: 0.88rem; color: var(--slate); font-weight: 500; transition: all var(--transition); }
 .interest-item:hover { border-color: var(--accent); transform: translateY(-1px); }
 .interest-icon { font-size: 1.1rem; }
-
 .lang-cards { display: flex; flex-direction: column; gap: 1rem; }
 .lang-card { background: var(--beige); border: 1px solid var(--beige-mid); border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; }
 .lang-flag { font-size: 1.5rem; }
@@ -185,37 +173,18 @@ section { padding: 5rem 2rem; }
 .lang-bar { height: 100%; border-radius: 3px; }
 .lang-bar.native { width: 100%; background: var(--accent); }
 .lang-bar.professional { width: 80%; background: var(--gold); }
-
-@media (max-width: 900px) {
-  .personal-grid { grid-template-columns: 1fr; }
-}
-.contact-section .section-label { color: var(--gold-light); }
-.contact-section .section-label::before { background: var(--gold-light); }
-.contact-section .section-title { color: var(--beige); }
-.contact-section .section-desc { color: var(--cloud); margin-left: auto; margin-right: auto; }
-.contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
-.contact-link { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: var(--cloud); padding: 0.75rem 1.25rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all var(--transition); }
-.contact-link:hover { background: rgba(255,255,255,0.12); color: var(--white); }
-
 .footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; padding: 2rem; color: var(--steel); font-size: 0.8rem; }
-
 .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
-
 @media (max-width: 900px) {
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-card { display: none; }
-  .hero h1 { font-size: 2.5rem; }
-  .about-grid, .msc-grid, .extra-grid { grid-template-columns: 1fr; }
-  .edu-card { grid-template-columns: 1fr; }
+  .hero-inner { grid-template-columns: 1fr; } .hero-card { display: none; } .hero h1 { font-size: 2.5rem; }
+  .about-grid, .msc-grid, .extra-grid, .personal-grid { grid-template-columns: 1fr; } .edu-card { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
-  .nav-links { display: none; }
-  .hamburger { display: block; }
+  .nav-links { display: none; } .hamburger { display: block; }
   .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: var(--beige); padding: 2rem; gap: 1.5rem; border-bottom: 1px solid var(--beige-mid); box-shadow: 0 8px 24px rgba(11,29,51,0.08); }
-  .hero h1 { font-size: 2rem; }
-  .hero-stats { gap: 1.5rem; }
-  section { padding: 3rem 1.25rem; }
+  .hero h1 { font-size: 2rem; } .hero-stats { gap: 1.5rem; } section { padding: 3rem 1.25rem; }
+  .lang-switcher { position: static; } .lang-dropdown { left: 0; right: auto; }
 }
 </style>
 </head>
@@ -225,12 +194,21 @@ section { padding: 5rem 2rem; }
   <div class="nav-inner">
     <a href="#" class="nav-logo">A<span>.</span>Bağcı</a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#msc-projects">Academic Work</a></li>
-      <li><a href="#awards">Awards</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about" data-i18n="nav_about">About</a></li>
+      <li><a href="#experience" data-i18n="nav_experience">Experience</a></li>
+      <li><a href="#msc-projects" data-i18n="nav_academic">Academic Work</a></li>
+      <li><a href="#awards" data-i18n="nav_awards">Awards</a></li>
+      <li><a href="#education" data-i18n="nav_education">Education</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+      <li class="lang-switcher">
+        <button class="lang-btn" id="langBtn">🇬🇧 EN ▾</button>
+        <div class="lang-dropdown" id="langDropdown">
+          <div class="lang-option active" data-lang="en">🇬🇧 English</div>
+          <div class="lang-option" data-lang="tr">🇹🇷 Türkçe</div>
+          <div class="lang-option" data-lang="de">🇩🇪 Deutsch</div>
+          <div class="lang-option" data-lang="es">🇪🇸 Español</div>
+        </div>
+      </li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
@@ -239,38 +217,35 @@ section { padding: 5rem 2rem; }
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-tag">Available September 2026</div>
-      <h1>AI &amp; Machine Learning <span class="accent">Engineer</span></h1>
-      <p class="hero-sub">Production-focused engineer with 3.5+ years building enterprise ML systems, RAG architectures, and computer vision solutions. Warwick MSc of Applied AI candidate and WMG Excellence Scholar.</p>
+      <div class="hero-tag" data-i18n="hero_tag">Available September 2026</div>
+      <h1>AI &amp; Machine Learning <span class="accent" data-i18n="hero_title_accent">Engineer</span></h1>
+      <p class="hero-sub" data-i18n="hero_sub">Production-focused engineer with 3.5+ years building enterprise ML systems, RAG architectures, and computer vision solutions. Warwick MSc of Applied AI candidate and WMG Excellence Scholar.</p>
       <div class="hero-stats">
-        <div><div class="hero-stat-num">5+</div><div class="hero-stat-label">Production Systems</div></div>
-        <div><div class="hero-stat-num">1</div><div class="hero-stat-label">Global Award</div></div>
-        <div><div class="hero-stat-num">1</div><div class="hero-stat-label">UK National Award</div></div>
-        <div><div class="hero-stat-num">4</div><div class="hero-stat-label">Turkey National Awards</div></div>
-        <div><div class="hero-stat-num">1</div><div class="hero-stat-label">Enterprise Level Award</div></div>
+        <div><div class="hero-stat-num">5+</div><div class="hero-stat-label" data-i18n="stat_systems">Production Systems</div></div>
+        <div><div class="hero-stat-num">1</div><div class="hero-stat-label" data-i18n="stat_global">Global Award</div></div>
+        <div><div class="hero-stat-num">1</div><div class="hero-stat-label" data-i18n="stat_uk">UK National Award</div></div>
+        <div><div class="hero-stat-num">4</div><div class="hero-stat-label" data-i18n="stat_turkey">Turkey National Awards</div></div>
+        <div><div class="hero-stat-num">1</div><div class="hero-stat-label" data-i18n="stat_enterprise">Enterprise Level Award</div></div>
       </div>
       <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">Get in Touch</a>
-        <a href="#experience" class="btn btn-outline">View Portfolio</a>
+        <a href="#contact" class="btn btn-primary" data-i18n="btn_contact">Get in Touch</a>
+        <a href="#experience" class="btn btn-outline" data-i18n="btn_portfolio">View Portfolio</a>
       </div>
     </div>
     <div class="hero-card">
       <div class="hero-card-header">
-        <div class="hero-avatar">
-          <!-- TO ADD YOUR PHOTO: save your image as "profile.jpg" in the same folder, then uncomment the line below and delete the "AB" text -->
-          <img src="profile.png" alt="Alara Bağcı"> 
-        </div>
+        <div class="hero-avatar"><img src="profile.png" alt="Alara Bağcı"></div>
         <div>
           <div class="hero-card-name">Alara Bağcı</div>
-          <div class="hero-card-role">AI/ML Engineer</div>
+          <div class="hero-card-role" data-i18n="card_role">AI/ML Engineer</div>
         </div>
       </div>
       <div class="hero-card-items">
-        <div class="hero-card-item"><div class="hero-card-icon">🎓</div><span>MSc Applied AI, University of Warwick</span></div>
-        <div class="hero-card-item"><div class="hero-card-icon">🏆</div><span>WMG Excellence Scholarship (Top 5%)</span></div>
-        <div class="hero-card-item"><div class="hero-card-icon">🏅</div><span>Technology Captain Runner-Up 2024</span></div>
-        <div class="hero-card-item"><div class="hero-card-icon">📍</div><span>Coventry, UK · No Sponsorship Required</span></div>
-        <div class="hero-card-item"><div class="hero-card-icon">🔬</div><span>RAG Research with Raiven</span></div>
+        <div class="hero-card-item"><div class="hero-card-icon">🎓</div><span data-i18n="card_msc">MSc Applied AI, University of Warwick</span></div>
+        <div class="hero-card-item"><div class="hero-card-icon">🏆</div><span data-i18n="card_scholarship">WMG Excellence Scholarship (Top 5%)</span></div>
+        <div class="hero-card-item"><div class="hero-card-icon">🏅</div><span data-i18n="card_captain">Technology Captain Runner-Up 2024</span></div>
+        <div class="hero-card-item"><div class="hero-card-icon">📍</div><span data-i18n="card_location">Coventry, UK · No Sponsorship Required</span></div>
+        <div class="hero-card-item"><div class="hero-card-icon">🔬</div><span data-i18n="card_research">RAG Research with Raiven</span></div>
       </div>
     </div>
   </div>
@@ -278,19 +253,19 @@ section { padding: 5rem 2rem; }
 
 <section id="about">
   <div class="section-inner fade-up">
-    <div class="section-label">About Me</div>
+    <div class="section-label" data-i18n="nav_about">About Me</div>
     <div class="about-grid">
       <div class="about-text">
-        <p>Results-oriented AI and Machine Learning Engineer with a strong mathematical foundation and practical enterprise experience. Currently pursuing an MSc in Applied Artificial Intelligence at the University of Warwick, where I was awarded the competitive WMG Excellence Scholarship recognising academic and professional excellence (top 5% of applicants).</p>
-        <p>Over 3.5 years at Assan Bilişim (Kibar Holding, Turkey), I designed and deployed production-grade ML systems spanning energy forecasting, computer vision quality inspection, enterprise RAG chatbots, predictive quality models, and logistics optimisation. Each project delivered measurable business impact, and my work has been recognised with 5 national technology awards, including Technology Captain Runner-Up of the Year 2024.</p>
-        <p>My current research focuses on advanced embedding and retrieval strategies for RAG systems, applying these techniques to UK Planning Policy documents in collaboration with industry partner Raiven. I also co-delivered a guest lecture on Introduction to RAG and Emerging RAG Technologies to MSc students at Warwick.</p>
-        <p>Currently holding a UK Student Visa. Eligible for the UK Graduate Route visa. No sponsorship required for 2 years. Available from Mid September 2026.</p>
+        <p data-i18n="about_p1">Results-oriented AI and Machine Learning Engineer with a strong mathematical foundation and practical enterprise experience. Currently pursuing an MSc in Applied Artificial Intelligence at the University of Warwick, where I was awarded the competitive WMG Excellence Scholarship recognising academic and professional excellence (top 5% of applicants).</p>
+        <p data-i18n="about_p2">Over 3.5 years at Assan Bilişim (Kibar Holding, Turkey), I designed and deployed production-grade ML systems spanning energy forecasting, computer vision quality inspection, enterprise RAG chatbots, predictive quality models, and logistics optimisation. Each project delivered measurable business impact, and my work has been recognised with 5 national technology awards, including Technology Captain Runner-Up of the Year 2024.</p>
+        <p data-i18n="about_p3">My current research focuses on advanced embedding and retrieval strategies for RAG systems, applying these techniques to UK Planning Policy documents in collaboration with industry partner Raiven. I also co-delivered a guest lecture on Introduction to RAG and Emerging RAG Technologies to MSc students at Warwick.</p>
+        <p data-i18n="about_p4">Currently holding a UK Student Visa. Eligible for the UK Graduate Route visa. No sponsorship required for 2 years. Available from Mid September 2026.</p>
       </div>
       <div class="about-highlights">
-        <div class="about-highlight"><div class="about-highlight-icon"></div><h4>Production ML</h4><p>End-to-end ML systems from data engineering to deployment and monitoring</p></div>
-        <div class="about-highlight"><div class="about-highlight-icon"></div><h4>GenAI &amp; RAG</h4><p>Enterprise RAG architectures with Azure OpenAI and custom retrieval strategies</p></div>
-        <div class="about-highlight"><div class="about-highlight-icon"></div><h4>Computer Vision</h4><p>Real-time defect detection with &lt;100ms latency in manufacturing</p></div>
-        <div class="about-highlight"><div class="about-highlight-icon"></div><h4>Data Science</h4><p>Statistical modelling, forecasting, and actionable business insights</p></div>
+        <div class="about-highlight"><div class="about-highlight-icon"></div><h4 data-i18n="hl_ml">Production ML</h4><p data-i18n="hl_ml_desc">End-to-end ML systems from data engineering to deployment and monitoring</p></div>
+        <div class="about-highlight"><div class="about-highlight-icon"></div><h4 data-i18n="hl_rag">GenAI &amp; RAG</h4><p data-i18n="hl_rag_desc">Enterprise RAG architectures with Azure OpenAI and custom retrieval strategies</p></div>
+        <div class="about-highlight"><div class="about-highlight-icon"></div><h4 data-i18n="hl_cv">Computer Vision</h4><p data-i18n="hl_cv_desc">Real-time defect detection with &lt;100ms latency in manufacturing</p></div>
+        <div class="about-highlight"><div class="about-highlight-icon"></div><h4 data-i18n="hl_ds">Data Science</h4><p data-i18n="hl_ds_desc">Statistical modelling, forecasting, and actionable business insights</p></div>
       </div>
     </div>
   </div>
@@ -298,79 +273,60 @@ section { padding: 5rem 2rem; }
 
 <section id="experience" class="bg-alt">
   <div class="section-inner fade-up">
-    <div class="section-label">Professional Experience</div>
-    <h2 class="section-title">Enterprise AI Solutions</h2>
-    <p class="section-desc">From production ML systems at a major industrial conglomerate to back-end development at a digital agency.</p>
-
+    <div class="section-label" data-i18n="nav_experience">Professional Experience</div>
+    <h2 class="section-title" data-i18n="exp_title">Enterprise AI Solutions</h2>
+    <p class="section-desc" data-i18n="exp_desc">From production ML systems at a major industrial conglomerate to back-end development at a digital agency.</p>
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-header">
-          <span class="timeline-role">Data Scientist / ML Engineer / GenAI Engineer</span>
+          <span class="timeline-role" data-i18n="role1">Data Scientist / ML Engineer / GenAI Engineer</span>
           <span class="timeline-date">June 2022 · September 2025</span>
         </div>
         <div class="timeline-company">Assan Bilişim (Kibar Holding), Turkey</div>
         <div class="project-cards">
-
           <div class="project-card">
             <h4>🤖 K-Bot: Enterprise RAG Chatbot <span style="color:var(--gold);font-size:0.75rem;font-weight:600;">Award-Winning</span></h4>
-            <p>Led the full lifecycle of K-Bot, a GPT-4 powered Retrieval-Augmented Generation chatbot serving 1,200+ employees across HR and IT departments. Designed a custom RAG architecture using Azure OpenAI Service, Microsoft Copilot Studio, and OpenAI Studio, experimenting with multiple embedding strategies (comparing different models and hybrid approaches), retrieval methods (semantic search combined with keyword matching), and chunking techniques (semantic segmentation, overlapping windows, context-aware splitting). Trained the system on internal knowledge bases including policies, procedures, and IT documentation. Implemented Power Apps for user interfaces, Power Automate for workflow orchestration, and Azure AI Service for intelligent document processing. Deployed via Microsoft Teams and SAP integration, with an external Streamlit portal connected through a secure Flask API.</p>
-            <p class="project-impact">Impact: 50% reduction in operational workload · 3x faster information access · 85%+ user satisfaction · Won 3 national technology awards</p>
-            <div class="project-tags">
-              <span class="tag">GPT-4</span><span class="tag">Azure OpenAI</span><span class="tag">RAG</span><span class="tag">Copilot Studio</span><span class="tag">OpenAI Studio</span><span class="tag">Power Platform</span><span class="tag">Azure AI Service</span><span class="tag">Flask</span><span class="tag">Streamlit</span><span class="tag">MS SQL Server</span><span class="tag">SAP</span><span class="tag">Microsoft Teams</span>
-            </div>
+            <p data-i18n="kbot_desc">Led the full lifecycle of K-Bot, a GPT-4 powered Retrieval-Augmented Generation chatbot serving 1,200+ employees across HR and IT departments. Designed a custom RAG architecture using Azure OpenAI Service, Microsoft Copilot Studio, and OpenAI Studio, experimenting with multiple embedding strategies (comparing different models and hybrid approaches), retrieval methods (semantic search combined with keyword matching), and chunking techniques (semantic segmentation, overlapping windows, context-aware splitting). Trained the system on internal knowledge bases including policies, procedures, and IT documentation. Implemented Power Apps for user interfaces, Power Automate for workflow orchestration, and Azure AI Service for intelligent document processing. Deployed via Microsoft Teams and SAP integration, with an external Streamlit portal connected through a secure Flask API.</p>
+            <p class="project-impact" data-i18n="kbot_impact">Impact: 50% reduction in operational workload · 3x faster information access · 85%+ user satisfaction · Won 3 national technology awards</p>
+            <div class="project-tags"><span class="tag">GPT-4</span><span class="tag">Azure OpenAI</span><span class="tag">RAG</span><span class="tag">Copilot Studio</span><span class="tag">OpenAI Studio</span><span class="tag">Power Platform</span><span class="tag">Azure AI Service</span><span class="tag">Flask</span><span class="tag">Streamlit</span><span class="tag">MS SQL Server</span><span class="tag">SAP</span><span class="tag">Microsoft Teams</span></div>
           </div>
-
           <div class="project-card">
             <h4>⚡ Energy Forecasting &amp; Profit Optimisation System <span style="color:var(--gold);font-size:0.75rem;font-weight:600;">Award-Winning</span></h4>
-            <p>Developed production XGBoost regression models to forecast Turkey's national electricity consumption and market clearing prices (PTF), enabling data-driven hydroelectric production planning. Implemented cvxpy-based mathematical optimisation for profit maximisation against the national electricity grid. Built an end-to-end automated MLOps pipeline on Azure integrating Synapse Analytics for data warehousing, Azure ML for model training and experiment tracking, and MLflow for model versioning and lifecycle management. Automated retraining and CI/CD deployment through Azure DevOps. Engineered a REST API data ingestion pipeline with automated error handling, data validation, and daily SQL database writes. Implemented statistical time series analysis and feature engineering incorporating weather data, historical consumption patterns, and economic indicators. Generated automated QlikSense dashboards for real-time business reporting and KPI tracking.</p>
-            <p class="project-impact">Impact: 2% profit margin increase · £250K+ annual revenue uplift · 92% forecast accuracy · 18% reduction in forecasting error · Project of the Year 2023</p>
-            <div class="project-tags">
-              <span class="tag">XGBoost</span><span class="tag">Azure ML</span><span class="tag">MLflow</span><span class="tag">Azure Synapse</span><span class="tag">Azure DevOps</span><span class="tag">cvxpy</span><span class="tag">CI/CD</span><span class="tag">QlikSense</span><span class="tag">REST APIs</span><span class="tag">SQL</span><span class="tag">Time Series</span>
-            </div>
+            <p data-i18n="energy_desc">Developed production XGBoost regression models to forecast Turkey's national electricity consumption and market clearing prices (PTF), enabling data-driven hydroelectric production planning. Implemented cvxpy-based mathematical optimisation for profit maximisation against the national electricity grid. Built an end-to-end automated MLOps pipeline on Azure integrating Synapse Analytics for data warehousing, Azure ML for model training and experiment tracking, and MLflow for model versioning and lifecycle management. Automated retraining and CI/CD deployment through Azure DevOps. Engineered a REST API data ingestion pipeline with automated error handling, data validation, and daily SQL database writes. Implemented statistical time series analysis and feature engineering incorporating weather data, historical consumption patterns, and economic indicators. Generated automated QlikSense dashboards for real-time business reporting and KPI tracking.</p>
+            <p class="project-impact" data-i18n="energy_impact">Impact: 2% profit margin increase · £250K+ annual revenue uplift · 92% forecast accuracy · 18% reduction in forecasting error · Project of the Year 2023</p>
+            <div class="project-tags"><span class="tag">XGBoost</span><span class="tag">Azure ML</span><span class="tag">MLflow</span><span class="tag">Azure Synapse</span><span class="tag">Azure DevOps</span><span class="tag">cvxpy</span><span class="tag">CI/CD</span><span class="tag">QlikSense</span><span class="tag">REST APIs</span><span class="tag">SQL</span><span class="tag">Time Series</span></div>
           </div>
-
           <div class="project-card">
-            <h4>👁️ Computer Vision Defect Detection</h4>
-            <p>Engineered a real-time YOLOv8 defect detection system for automated visual inspection of surface and structural defects on manufacturing production lines. Trained on 15,000+ annotated images achieving 94% precision, exported to ONNX format for edge deployment with &lt;100ms inference latency. Integrated with PLC sensors for continuous 24/7 operation. Designed a model evaluation framework with precision-recall analysis and production monitoring.</p>
-            <p class="project-impact">Impact: 30% improvement in defect detection · Eliminated manual quality checks · Prevented faulty shipments</p>
-            <div class="project-tags">
-              <span class="tag">YOLOv8</span><span class="tag">PyTorch</span><span class="tag">ONNX</span><span class="tag">OpenCV</span><span class="tag">Azure ML</span><span class="tag">Edge Computing</span><span class="tag">PLC Integration</span>
-            </div>
+            <h4 data-i18n="cv_title">👁️ Computer Vision Defect Detection</h4>
+            <p data-i18n="cv_desc">Engineered a real-time YOLOv8 defect detection system for automated visual inspection of surface and structural defects on manufacturing production lines. Trained on 15,000+ annotated images achieving 94% precision, exported to ONNX format for edge deployment with &lt;100ms inference latency. Integrated with PLC sensors for continuous 24/7 operation. Designed a model evaluation framework with precision-recall analysis and production monitoring.</p>
+            <p class="project-impact" data-i18n="cv_impact">Impact: 30% improvement in defect detection · Eliminated manual quality checks · Prevented faulty shipments</p>
+            <div class="project-tags"><span class="tag">YOLOv8</span><span class="tag">PyTorch</span><span class="tag">ONNX</span><span class="tag">OpenCV</span><span class="tag">Azure ML</span><span class="tag">Edge Computing</span><span class="tag">PLC Integration</span></div>
           </div>
-
           <div class="project-card">
-            <h4>🏭 Product Quality Prediction</h4>
-            <p>Developed multi-class XGBoost classification models achieving 89% F1-score to predict product serviceability and quality outcomes pre-shipment based on 47 production parameters. Performed extensive feature engineering, statistical analysis, and model validation using cross-validation. Integrated with SAP and Microsoft Fabric via bi-directional Flask API.</p>
-            <p class="project-impact">Impact: 23% reduction in rework · Minimised production delays · Prevented faulty shipments</p>
-            <div class="project-tags">
-              <span class="tag">XGBoost</span><span class="tag">Scikit-learn</span><span class="tag">SMOTE</span><span class="tag">SAP</span><span class="tag">Flask</span><span class="tag">Microsoft Fabric</span>
-            </div>
+            <h4 data-i18n="quality_title">🏭 Product Quality Prediction</h4>
+            <p data-i18n="quality_desc">Developed multi-class XGBoost classification models achieving 89% F1-score to predict product serviceability and quality outcomes pre-shipment based on 47 production parameters. Performed extensive feature engineering, statistical analysis, and model validation using cross-validation. Integrated with SAP and Microsoft Fabric via bi-directional Flask API.</p>
+            <p class="project-impact" data-i18n="quality_impact">Impact: 23% reduction in rework · Minimised production delays · Prevented faulty shipments</p>
+            <div class="project-tags"><span class="tag">XGBoost</span><span class="tag">Scikit-learn</span><span class="tag">SMOTE</span><span class="tag">SAP</span><span class="tag">Flask</span><span class="tag">Microsoft Fabric</span></div>
           </div>
-
           <div class="project-card">
-            <h4>📦 3D Logistics Optimisation</h4>
-            <p>Created a bin-packing optimisation algorithm balancing multi-dimensional constraints including sequence, weight distribution, volume utilisation, and load stability (200+ constraints). Deployed via Flask API integrated with SAP for automated order processing, with an interactive 3D visualisation interface built using FastAPI.</p>
-            <p class="project-impact">Impact: 15% improvement in truck utilisation · 60% reduction in manual planning · Standardised all domestic shipments</p>
-            <div class="project-tags">
-              <span class="tag">Python</span><span class="tag">Optimisation</span><span class="tag">Flask</span><span class="tag">FastAPI</span><span class="tag">SAP</span><span class="tag">Three.js</span>
-            </div>
+            <h4 data-i18n="logistics_title">📦 3D Logistics Optimisation</h4>
+            <p data-i18n="logistics_desc">Created a bin-packing optimisation algorithm balancing multi-dimensional constraints including sequence, weight distribution, volume utilisation, and load stability (200+ constraints). Deployed via Flask API integrated with SAP for automated order processing, with an interactive 3D visualisation interface built using FastAPI.</p>
+            <p class="project-impact" data-i18n="logistics_impact">Impact: 15% improvement in truck utilisation · 60% reduction in manual planning · Standardised all domestic shipments</p>
+            <div class="project-tags"><span class="tag">Python</span><span class="tag">Optimisation</span><span class="tag">Flask</span><span class="tag">FastAPI</span><span class="tag">SAP</span><span class="tag">Three.js</span></div>
           </div>
         </div>
       </div>
-
       <div class="timeline-item">
         <div class="timeline-header">
-          <span class="timeline-role">Back-End Developer (Internship)</span>
+          <span class="timeline-role" data-i18n="role2">Back-End Developer (Internship)</span>
           <span class="timeline-date">July 2021 · March 2022</span>
         </div>
         <div class="timeline-company">FRANK. Digital, Turkey (Remote)</div>
         <div class="project-cards">
           <div class="project-card">
-            <h4>💻 Scalable Web Application Development</h4>
-            <p>Developed and maintained scalable web applications using .NET Core, building efficient APIs and server-side logic alongside senior developers. Implemented database structures and wrote optimised SQL queries for data retrieval and performance improvement. Collaborated with UX designers to translate design requirements into efficient system logic. Worked remotely in an agile environment, managing tasks independently and delivering on sprint commitments.</p>
-            <div class="project-tags">
-              <span class="tag">C#</span><span class="tag">.NET Core</span><span class="tag">SQL</span><span class="tag">Visual Studio</span><span class="tag">REST APIs</span><span class="tag">Agile</span>
-            </div>
+            <h4 data-i18n="frank_title">💻 Scalable Web Application Development</h4>
+            <p data-i18n="frank_desc">Developed and maintained scalable web applications using .NET Core, building efficient APIs and server-side logic alongside senior developers. Implemented database structures and wrote optimised SQL queries for data retrieval and performance improvement. Collaborated with UX designers to translate design requirements into efficient system logic. Worked remotely in an agile environment, managing tasks independently and delivering on sprint commitments.</p>
+            <div class="project-tags"><span class="tag">C#</span><span class="tag">.NET Core</span><span class="tag">SQL</span><span class="tag">Visual Studio</span><span class="tag">REST APIs</span><span class="tag">Agile</span></div>
           </div>
         </div>
       </div>
@@ -380,24 +336,22 @@ section { padding: 5rem 2rem; }
 
 <section id="msc-projects">
   <div class="section-inner fade-up">
-    <div class="section-label">Academic Work</div>
-    <h2 class="section-title">Research, Coursework &amp; Teaching</h2>
-    <p class="section-desc">Dissertation research, outstanding coursework, and guest lecturing at the University of Warwick.</p>
-
+    <div class="section-label" data-i18n="nav_academic">Academic Work</div>
+    <h2 class="section-title" data-i18n="acad_title">Research, Coursework &amp; Teaching</h2>
+    <p class="section-desc" data-i18n="acad_desc">Dissertation research, outstanding coursework, and guest lecturing at the University of Warwick.</p>
     <div class="msc-grid">
       <div class="msc-card">
-        <div class="badge badge-research">🔬 Dissertation (In Progress)</div>
-        <h3>Advanced Embedding &amp; Retrieval Strategies for RAG Systems</h3>
-        <div class="module">Industry Collaboration with Raiven</div>
-        <p>Researching how embedding and retrieval strategies can improve the performance of RAG-based systems, using UK Planning Policy documents as the domain-specific dataset. Exploring Graph-RAG, hybrid retrieval methods, embedding enrichment strategies (graph embeddings vs text embeddings), and novel context-building approaches for domain-specific question answering. Communicate and collaborate with employees(Raiven) to further discuss the architecture, having weekly meetings.</p>
-        <div class="msc-links"><span class="msc-link disabled">GitHub (Coming Soon)</span></div>
+        <div class="badge badge-research" data-i18n="badge_diss">🔬 Dissertation (In Progress)</div>
+        <h3 data-i18n="diss_title">Advanced Embedding &amp; Retrieval Strategies for RAG Systems</h3>
+        <div class="module" data-i18n="diss_module">Industry Collaboration with Raiven</div>
+        <p data-i18n="diss_desc">Researching how embedding and retrieval strategies can improve the performance of RAG-based systems, using UK Planning Policy documents as the domain-specific dataset. Exploring Graph-RAG, hybrid retrieval methods, embedding enrichment strategies (graph embeddings vs text embeddings), and novel context-building approaches for domain-specific question answering. Communicate and collaborate with employees(Raiven) to further discuss the architecture, having weekly meetings.</p>
+        <div class="msc-links"><span class="msc-link disabled" data-i18n="coming_soon">GitHub (Coming Soon)</span></div>
       </div>
-
       <div class="msc-card">
         <div class="badge badge-outstanding">⭐ Outstanding Grade</div>
-        <h3>Fundamentals of AI and Data Mining</h3>
+        <h3 data-i18n="wm9qg_title">Fundamentals of AI and Data Mining</h3>
         <div class="module">WM9QG · Group Application &amp; Individual Assignment</div>
-        <p>Achieved Outstanding grades for both the group application (with group presentation) and the individual application with critical reflection report. Developed AI and data mining solutions demonstrating strong analytical and applied skills. Communicate and collaborate with International students for a group project</p>
+        <p data-i18n="wm9qg_desc">Achieved Outstanding grades for both the group application (with group presentation) and the individual application with critical reflection report. Developed AI and data mining solutions demonstrating strong analytical and applied skills. Communicate and collaborate with International students for a group project</p>
         <div class="msc-links">
           <a href="https://github.com/AlaraBagci/data-mining-group-project" class="msc-link">📂 Group Repo</a>
           <a href="https://github.com/AlaraBagci/data-mining-individual" class="msc-link">📂 Individual Repo</a>
@@ -405,12 +359,11 @@ section { padding: 5rem 2rem; }
           <a href="https://drive.google.com/file/d/1Asg7N-DxBxabv0vZEoze1KTtQ-pGstIo/view?usp=sharing" class="msc-link">🖥️ Presentation</a>
         </div>
       </div>
-
       <div class="msc-card">
         <div class="badge badge-distinction">🎯 Distinction Grade</div>
-        <h3>Programming for Artificial Intelligence</h3>
+        <h3 data-i18n="wm9qf_title">Programming for Artificial Intelligence</h3>
         <div class="module">WM9QF · Group Application &amp; Individual Assignment</div>
-        <p>Achieved Distinction grades for both the group application (with group presentation) and the individual application with critical reflection report. Built AI programming solutions showcasing software engineering and machine learning skills. Communicate and collaborate with International students for a group project</p>
+        <p data-i18n="wm9qf_desc">Achieved Distinction grades for both the group application (with group presentation) and the individual application with critical reflection report. Built AI programming solutions showcasing software engineering and machine learning skills. Communicate and collaborate with International students for a group project</p>
         <div class="msc-links">
           <a href="https://github.com/AlaraBagci/student-management-system" class="msc-link">📂 Group Repo</a>
           <a href="https://github.com/AlaraBagci/public-health-dashboard" class="msc-link">📂 Individual Repo</a>
@@ -418,15 +371,12 @@ section { padding: 5rem 2rem; }
           <a href="https://drive.google.com/file/d/1Le6FRSUmordtJKjrctdpWkTpFeyPLoe2/view?usp=sharing" class="msc-link">🖥️ Presentation</a>
         </div>
       </div>
-
       <div class="msc-card">
         <div class="badge badge-lecture">🎓 Guest Lecture</div>
-        <h3>Introduction to RAG &amp; Emerging RAG Technologies</h3>
+        <h3 data-i18n="lecture_title">Introduction to RAG &amp; Emerging RAG Technologies</h3>
         <div class="module">WMG MSc Applied AI Module</div>
-        <p>Co-delivered a guest lecture with my supervisor to MSc students, covering the fundamentals of Retrieval-Augmented Generation, Graph-RAG, and emerging techniques in the RAG ecosystem. Created the lecture presentation and accompanying GitHub code examples for students.</p>
-        <div class="msc-links">
-          <a href="https://github.com/AlaraBagci/warwick-rag-class" class="msc-link">📂 GitHub Codes</a>
-        </div>
+        <p data-i18n="lecture_desc">Co-delivered a guest lecture with my supervisor to MSc students, covering the fundamentals of Retrieval-Augmented Generation, Graph-RAG, and emerging techniques in the RAG ecosystem. Created the lecture presentation and accompanying GitHub code examples for students.</p>
+        <div class="msc-links"><a href="https://github.com/AlaraBagci/warwick-rag-class" class="msc-link">📂 GitHub Codes</a></div>
       </div>
     </div>
   </div>
@@ -434,50 +384,50 @@ section { padding: 5rem 2rem; }
 
 <section id="awards" class="bg-alt">
   <div class="section-inner fade-up">
-    <div class="section-label">Awards &amp; Recognition</div>
-    <h2 class="section-title">Achievements &amp; Scholarships</h2>
+    <div class="section-label" data-i18n="nav_awards">Awards &amp; Recognition</div>
+    <h2 class="section-title" data-i18n="awards_title">Achievements &amp; Scholarships</h2>
     <div class="awards-grid">
-      <div class="award-card"><div class="award-icon">🏆</div><div><h4>Runner-Up Technology Captain of the Year</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024 · National Recognition</div></div></div>
-      <div class="award-card"><div class="award-icon">🥇</div><div><h4>1st Place: Digital Transformation</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024</div></div></div>
-      <div class="award-card"><div class="award-icon">🥈</div><div><h4>2nd Place: Cost Optimisation</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024</div></div></div>
-      <div class="award-card"><div class="award-icon">🥈</div><div><h4>2nd Place: Innovation</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024</div></div></div>
-      <div class="award-card"><div class="award-icon">🥇</div><div><h4>Project of the Year: Digital Transformation</h4><div class="award-org">Kibar Holding Asım Kibar Mavi Damla Awards</div><div class="award-year">2023</div></div></div>
-      <div class="award-card"><div class="award-icon">🎓</div><div><h4>WMG Excellence Scholarship</h4><div class="award-org">University of Warwick · Top 5% of applicants</div><div class="award-year">2025</div><a href="https://drive.google.com/file/d/1blTbxEAxs_mFtmSpnipeE86I8W_RxOrA/view?usp=sharing" class="award-cert-link">📜 View Certificate</a></div></div>
-      <div class="award-card"><div class="award-icon">🥉</div><div><h4>3rd Place: AWS PartyRock GenAI Hackathon</h4><div class="award-org">Sustainability Track · RE:GEN Project</div><div class="award-year">2025</div><a href="https://drive.google.com/file/d/1GoC8tQE7XXarHUWOJcy-t6tOY3a7zDnA/view?usp=sharing" class="award-cert-link">📜 View Certificate</a></div></div>
+      <div class="award-card"><div class="award-icon">🏆</div><div><h4 data-i18n="aw1">Runner-Up Technology Captain of the Year</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024 · National Recognition</div></div></div>
+      <div class="award-card"><div class="award-icon">🥇</div><div><h4 data-i18n="aw2">1st Place: Digital Transformation</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024</div></div></div>
+      <div class="award-card"><div class="award-icon">🥈</div><div><h4 data-i18n="aw3">2nd Place: Cost Optimisation</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024</div></div></div>
+      <div class="award-card"><div class="award-icon">🥈</div><div><h4 data-i18n="aw4">2nd Place: Innovation</h4><div class="award-org">BT Haber Technology Captains Awards</div><div class="award-year">2024</div></div></div>
+      <div class="award-card"><div class="award-icon">🥇</div><div><h4 data-i18n="aw5">Project of the Year: Digital Transformation</h4><div class="award-org">Kibar Holding Asım Kibar Mavi Damla Awards</div><div class="award-year">2023</div></div></div>
+      <div class="award-card"><div class="award-icon">🎓</div><div><h4 data-i18n="aw6">WMG Excellence Scholarship</h4><div class="award-org">University of Warwick · Top 5% of applicants</div><div class="award-year">2025</div><a href="https://drive.google.com/file/d/1blTbxEAxs_mFtmSpnipeE86I8W_RxOrA/view?usp=sharing" class="award-cert-link" data-i18n="view_cert">📜 View Certificate</a></div></div>
+      <div class="award-card"><div class="award-icon">🥉</div><div><h4 data-i18n="aw7">3rd Place: AWS PartyRock GenAI Hackathon</h4><div class="award-org">Sustainability Track · RE:GEN Project</div><div class="award-year">2025</div><a href="https://drive.google.com/file/d/1GoC8tQE7XXarHUWOJcy-t6tOY3a7zDnA/view?usp=sharing" class="award-cert-link" data-i18n="view_cert2">📜 View Certificate</a></div></div>
     </div>
   </div>
 </section>
 
 <section id="education">
   <div class="section-inner fade-up">
-    <div class="section-label">Education</div>
-    <h2 class="section-title">Academic Background</h2>
+    <div class="section-label" data-i18n="nav_education">Education</div>
+    <h2 class="section-title" data-i18n="edu_title">Academic Background</h2>
     <div class="edu-cards">
       <div class="edu-card">
         <div class="edu-icon">🎓</div>
         <div>
-          <h3>MSc Applied Artificial Intelligence (Distinction Expected)</h3>
+          <h3 data-i18n="msc_degree">MSc Applied Artificial Intelligence (Distinction Expected)</h3>
           <div class="uni">University of Warwick, Warwick Manufacturing Group (WMG)</div>
           <div class="date">September 2025 · September 2026</div>
           <ul class="edu-bullets">
-            <li>WMG Excellence Scholarship 2025: merit-based award for academic and professional excellence</li>
-            <li>Dissertation: Advanced Embedding and Retrieval Strategies for RAG Systems (with Raiven, applied to UK Planning Policy documents)</li>
-            <li>Key Modules: Advanced Machine Learning, Deep Learning, NLP, Computer Vision, MLOps, AI Ethics</li>
-            <li>Guest Lecturer: Introduction to RAG and Emerging RAG Technologies</li>
+            <li data-i18n="edu_scholarship">WMG Excellence Scholarship 2025: merit-based award for academic and professional excellence</li>
+            <li data-i18n="edu_diss">Dissertation: Advanced Embedding and Retrieval Strategies for RAG Systems (with Raiven, applied to UK Planning Policy documents)</li>
+            <li data-i18n="edu_modules">Key Modules: Advanced Machine Learning, Deep Learning, NLP, Computer Vision, MLOps, AI Ethics</li>
+            <li data-i18n="edu_guest">Guest Lecturer: Introduction to RAG and Emerging RAG Technologies</li>
           </ul>
         </div>
       </div>
       <div class="edu-card">
         <div class="edu-icon">🎓</div>
         <div>
-          <h3>BSc Mathematical Engineering (Honours, GPA: 3.23/4.00)</h3>
+          <h3 data-i18n="bsc_degree">BSc Mathematical Engineering (Honours, GPA: 3.23/4.00)</h3>
           <div class="uni">Yıldız Technical University, Turkey</div>
           <div class="date">September 2019 · August 2023</div>
           <ul class="edu-bullets">
-            <li>Globally ranked Top 400 for Engineering &amp; Technology</li>
-            <li>Thesis: Detection of Cervical Cancer Using Deep Learning Techniques</li>
-            <li>Core Modules: Linear Algebra, Statistics, Optimisation Methods, Numerical Analysis, Deep Learning</li>
-            <li><a href="https://drive.google.com/file/d/1U5tvh1Jf1jYAxVWgyxMsqcK3IsqRiuPG/view?usp=sharing" class="edu-link">📄 View Transcript</a></li>
+            <li data-i18n="edu_ranking">Globally ranked Top 400 for Engineering &amp; Technology</li>
+            <li data-i18n="edu_thesis">Thesis: Detection of Cervical Cancer Using Deep Learning Techniques</li>
+            <li data-i18n="edu_core">Core Modules: Linear Algebra, Statistics, Optimisation Methods, Numerical Analysis, Deep Learning</li>
+            <li><a href="https://drive.google.com/file/d/1U5tvh1Jf1jYAxVWgyxMsqcK3IsqRiuPG/view?usp=sharing" class="edu-link" data-i18n="view_transcript">📄 View Transcript</a></li>
           </ul>
         </div>
       </div>
@@ -487,46 +437,43 @@ section { padding: 5rem 2rem; }
 
 <section class="bg-alt">
   <div class="section-inner fade-up">
-    <div class="section-label">Technical Skills</div>
-    <h2 class="section-title">Technologies &amp; Tools</h2>
+    <div class="section-label" data-i18n="skills_label">Technical Skills</div>
+    <h2 class="section-title" data-i18n="skills_title">Technologies &amp; Tools</h2>
     <div class="skills-grid">
       <div class="skill-group"><h4>Machine Learning</h4><div class="skill-tags"><span class="skill-tag">XGBoost</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Random Forest</span><span class="skill-tag">Feature Engineering</span><span class="skill-tag">Hyperparameter Tuning</span><span class="skill-tag">A/B Testing</span><span class="skill-tag">Regression</span><span class="skill-tag">Data Analysis</span><span class="skill-tag">Feature Selection</span><span class="skill-tag">Imbalanced Classification</span><span class="skill-tag">Pandas/Numpy</span><span class="skill-tag">Data Engineering</span></div></div>
       <div class="skill-group"><h4>Deep Learning &amp; AI</h4><div class="skill-tags"><span class="skill-tag">TensorFlow</span><span class="skill-tag">PyTorch</span><span class="skill-tag">Computer Vision</span><span class="skill-tag">NLP</span><span class="skill-tag">YOLOv8</span><span class="skill-tag">ONNX</span><span class="skill-tag">EfficientNet</span><span class="skill-tag">ConvNeXt</span><span class="skill-tag">MobileNet</span><span class="skill-tag">CNN</span></div></div>
       <div class="skill-group"><h4>Generative AI &amp; LLMs</h4><div class="skill-tags"><span class="skill-tag">GPT-4</span><span class="skill-tag">Azure OpenAI</span><span class="skill-tag">RAG Architecture</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">Graph-RAG</span><span class="skill-tag">Copilot Studio</span><span class="skill-tag">LLM Fine Tuning</span><span class="skill-tag">Indexing</span><span class="skill-tag">Knowledge Graph</span><span class="skill-tag">Vector Space</span><span class="skill-tag">Pre-trained Models</span><span class="skill-tag">Retrieval Techniques</span><span class="skill-tag">Embeddings</span></div></div>
       <div class="skill-group"><h4>MLOps &amp; Cloud</h4><div class="skill-tags"><span class="skill-tag">Azure ML</span><span class="skill-tag">MLflow</span><span class="skill-tag">Docker</span><span class="skill-tag">CI/CD</span><span class="skill-tag">Azure DevOps</span><span class="skill-tag">Azure Synapse</span></div></div>
-      <div class="skill-group"><h4>Programming</h4><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">C#</span><span class="skill-tag">SQL</span><span class="skill-tag">Flask</span><span class="skill-tag">FastAPI</span><span class="skill-tag">.NET Core</span></div></div>
-      <div class="skill-group"><h4>Enterprise Integration</h4><div class="skill-tags"><span class="skill-tag">SAP</span><span class="skill-tag">Microsoft Fabric</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Power Platform</span><span class="skill-tag">Streamlit</span><span class="skill-tag">Redis</span></div></div>
+      <div class="skill-group"><h4 data-i18n="sk_prog">Programming</h4><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">C#</span><span class="skill-tag">SQL</span><span class="skill-tag">Flask</span><span class="skill-tag">FastAPI</span><span class="skill-tag">.NET Core</span></div></div>
+      <div class="skill-group"><h4 data-i18n="sk_enterprise">Enterprise Integration</h4><div class="skill-tags"><span class="skill-tag">SAP</span><span class="skill-tag">Microsoft Fabric</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Power Platform</span><span class="skill-tag">Streamlit</span><span class="skill-tag">Redis</span></div></div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="section-inner fade-up">
-    <div class="section-label">Extracurricular</div>
-    <h2 class="section-title">Beyond the Code</h2>
+    <div class="section-label" data-i18n="extra_label">Extracurricular</div>
+    <h2 class="section-title" data-i18n="extra_title">Beyond the Code</h2>
     <div class="extra-grid">
       <div class="extra-card">
         <h4>🔐 Google Cloud x NatWest: Secure Intelligence Frontier Hackathon</h4>
-        <p>Developed a high-level AI coding agent composed of 11 specialised sub-agents. The system acts as an AI coding assistant that secures code, enforces best practices, and includes ethics and security vulnerability checks. Built a comprehensive technology stack that the judges praised highly, with an accompanying demo video. Built with international teammates from WMG MSc Applied AI. </p>
-        <div class="extra-links">
-          <a href="#" class="msc-link">📂 GitHub Repo</a>
-          <a href="#" class="msc-link">🎬 Demo Video</a>
-        </div>
+        <p data-i18n="google_hack_desc">Developed a high-level AI coding agent composed of 11 specialised sub-agents. The system acts as an AI coding assistant that secures code, enforces best practices, and includes ethics and security vulnerability checks. Built a comprehensive technology stack that the judges praised highly, with an accompanying demo video. Built with international teammates from WMG MSc Applied AI.</p>
+        <div class="extra-links"><a href="#" class="msc-link">📂 GitHub Repo</a><a href="#" class="msc-link">🎬 Demo Video</a></div>
         <div class="extra-meta">Google Cloud · NatWest · WMG Venture Studio · 2026</div>
       </div>
       <div class="extra-card">
         <h4>🥉 AWS PartyRock GenAI Hackathon: RE:GEN</h4>
-        <p>Secured 3rd place in the Sustainability Track. Developed RE:GEN, a multimodal AI assistant that analyses photos of household items, identifies local disposal rules, and provides creative upcycling suggestions. Designed to bridge the gap between complex waste regulations and sustainable consumer habits in the UK. Built with teammates Dilara Bayram and Rahulsivanand S, representing WMG, University of Warwick.</p>
+        <p data-i18n="aws_hack_desc">Secured 3rd place in the Sustainability Track. Developed RE:GEN, a multimodal AI assistant that analyses photos of household items, identifies local disposal rules, and provides creative upcycling suggestions. Designed to bridge the gap between complex waste regulations and sustainable consumer habits in the UK. Built with teammates Dilara Bayram and Rahulsivanand S, representing WMG, University of Warwick.</p>
         <div class="extra-meta">Amazon Web Services · Sustainability Track · 2025</div>
       </div>
       <div class="extra-card">
-        <h4>🎤 Guest Lecturer: University of Warwick</h4>
-        <p>Co-delivered a MSc-level lecture on Introduction to RAG and Emerging RAG Technologies, sharing practical insights from the award-winning K-Bot enterprise deployment. Created the presentation slides and GitHub code repository for student use.</p>
+        <h4 data-i18n="guest_lect_title">🎤 Guest Lecturer: University of Warwick</h4>
+        <p data-i18n="guest_lect_desc">Co-delivered a MSc-level lecture on Introduction to RAG and Emerging RAG Technologies, sharing practical insights from the award-winning K-Bot enterprise deployment. Created the presentation slides and GitHub code repository for student use.</p>
         <div class="extra-meta">WMG Applied AI Programme · 2026</div>
       </div>
       <div class="extra-card">
-        <h4>👩‍🏫 Mentorship &amp; Leadership</h4>
-        <p>Mentored 3 junior engineers on ML best practices, Azure services, and production deployment workflows. Led cross-functional coordination with logistics, sales, HR, IT, and SAP teams across multiple enterprise AI projects at Kibar Holding.</p>
+        <h4 data-i18n="mentor_title">👩‍🏫 Mentorship &amp; Leadership</h4>
+        <p data-i18n="mentor_desc">Mentored 3 junior engineers on ML best practices, Azure services, and production deployment workflows. Led cross-functional coordination with logistics, sales, HR, IT, and SAP teams across multiple enterprise AI projects at Kibar Holding.</p>
         <div class="extra-meta">Kibar Holding · 2022 to 2025</div>
       </div>
     </div>
@@ -535,40 +482,26 @@ section { padding: 5rem 2rem; }
 
 <section>
   <div class="section-inner fade-up">
-    <div class="section-label">Personal</div>
-    <h2 class="section-title">Interests &amp; Languages</h2>
+    <div class="section-label" data-i18n="personal_label">Personal</div>
+    <h2 class="section-title" data-i18n="personal_title">Interests &amp; Languages</h2>
     <div class="personal-grid">
       <div>
-        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;">Hobbies &amp; Interests</h3>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;" data-i18n="hobbies_title">Hobbies &amp; Interests</h3>
         <div class="interests-list">
-          <div class="interest-item"><span class="interest-icon">🎹</span> Playing Piano</div>
-          <div class="interest-item"><span class="interest-icon">🌿</span> Nature Walking</div>
-          <div class="interest-item"><span class="interest-icon">🧠</span> Psychology &amp; Human Behaviour</div>
-          <div class="interest-item"><span class="interest-icon">🏊</span> Swimming</div>
-          <div class="interest-item"><span class="interest-icon">🎵</span> Music &amp; Festivals</div>
-          <div class="interest-item"><span class="interest-icon">⛺</span> Camping</div>
-          <div class="interest-item"><span class="interest-icon">🏐</span> Volleyball</div>
+          <div class="interest-item"><span class="interest-icon">🎹</span> <span data-i18n="int_piano">Playing Piano</span></div>
+          <div class="interest-item"><span class="interest-icon">🌿</span> <span data-i18n="int_nature">Nature Walking</span></div>
+          <div class="interest-item"><span class="interest-icon">🧠</span> <span data-i18n="int_psych">Psychology &amp; Human Behaviour</span></div>
+          <div class="interest-item"><span class="interest-icon">🏊</span> <span data-i18n="int_swim">Swimming</span></div>
+          <div class="interest-item"><span class="interest-icon">🎵</span> <span data-i18n="int_music">Music &amp; Festivals</span></div>
+          <div class="interest-item"><span class="interest-icon">⛺</span> <span data-i18n="int_camp">Camping</span></div>
+          <div class="interest-item"><span class="interest-icon">🏐</span> <span data-i18n="int_volley">Volleyball</span></div>
         </div>
       </div>
       <div>
-        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;">Languages</h3>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;" data-i18n="languages_title">Languages</h3>
         <div class="lang-cards">
-          <div class="lang-card">
-            <span class="lang-flag">🇹🇷</span>
-            <div>
-              <div class="lang-name">Turkish</div>
-              <div class="lang-level">Native</div>
-            </div>
-            <div class="lang-bar-container"><div class="lang-bar native"></div></div>
-          </div>
-          <div class="lang-card">
-            <span class="lang-flag">🇬🇧</span>
-            <div>
-              <div class="lang-name">English</div>
-              <div class="lang-level">Professional</div>
-            </div>
-            <div class="lang-bar-container"><div class="lang-bar professional"></div></div>
-          </div>
+          <div class="lang-card"><span class="lang-flag">🇹🇷</span><div><div class="lang-name" data-i18n="lang_tr">Turkish</div><div class="lang-level" data-i18n="lang_native">Native</div></div><div class="lang-bar-container"><div class="lang-bar native"></div></div></div>
+          <div class="lang-card"><span class="lang-flag">🇬🇧</span><div><div class="lang-name" data-i18n="lang_en">English</div><div class="lang-level" data-i18n="lang_prof">Professional</div></div><div class="lang-bar-container"><div class="lang-bar professional"></div></div></div>
         </div>
       </div>
     </div>
@@ -577,9 +510,9 @@ section { padding: 5rem 2rem; }
 
 <section id="contact" class="contact-section">
   <div class="section-inner fade-up">
-    <div class="section-label">Get in Touch</div>
-    <h2 class="section-title">Let's Work Together</h2>
-    <p class="section-desc">Available from September 2026. Eligible for UK Graduate Route. No sponsorship required.</p>
+    <div class="section-label" data-i18n="nav_contact">Get in Touch</div>
+    <h2 class="section-title" data-i18n="contact_title">Let's Work Together</h2>
+    <p class="section-desc" data-i18n="contact_desc">Available from September 2026. Eligible for UK Graduate Route. No sponsorship required.</p>
     <div class="contact-links">
       <a href="mailto:bagcialara@gmail.com" class="contact-link">✉️ bagcialara@gmail.com</a>
       <a href="https://linkedin.com/in/alarabagci" class="contact-link" target="_blank">💼 LinkedIn</a>
@@ -592,14 +525,195 @@ section { padding: 5rem 2rem; }
 <footer class="footer">&copy; 2026 Alara Bağcı. Built with care.</footer>
 
 <script>
+// Nav scroll
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 20); });
+
+// Hamburger
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 hamburger.addEventListener('click', () => { navLinks.classList.toggle('open'); });
 navLinks.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => navLinks.classList.remove('open')); });
+
+// Fade-in
 const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Language Switcher
+const langBtn = document.getElementById('langBtn');
+const langDropdown = document.getElementById('langDropdown');
+const langFlags = { en: '🇬🇧', tr: '🇹🇷', de: '🇩🇪', es: '🇪🇸' };
+const langCodes = { en: 'EN', tr: 'TR', de: 'DE', es: 'ES' };
+
+langBtn.addEventListener('click', (e) => { e.stopPropagation(); langDropdown.classList.toggle('open'); });
+document.addEventListener('click', () => { langDropdown.classList.remove('open'); });
+
+const T = {
+tr: {
+  nav_about:"Hakkımda", nav_experience:"Deneyim", nav_academic:"Akademik", nav_awards:"Ödüller", nav_education:"Eğitim", nav_contact:"İletişim",
+  hero_tag:"Eylül 2026'dan İtibaren Müsait", hero_title_accent:"Mühendisi", hero_sub:"3,5+ yıllık kurumsal ML sistemleri, RAG mimarileri ve bilgisayarlı görü çözümleri geliştirme deneyimine sahip, üretim odaklı mühendis. Warwick Üniversitesi Uygulamalı Yapay Zeka Yüksek Lisans adayı ve WMG Mükemmellik Bursiyeri.",
+  stat_systems:"Üretim Sistemi", stat_global:"Küresel Ödül", stat_uk:"İngiltere Ulusal Ödül", stat_turkey:"Türkiye Ulusal Ödül", stat_enterprise:"Kurumsal Ödül",
+  btn_contact:"İletişime Geç", btn_portfolio:"Portföyü Görüntüle", card_role:"YZ/ML Mühendisi",
+  card_msc:"Uygulamalı YZ Yüksek Lisans, Warwick Üniversitesi", card_scholarship:"WMG Mükemmellik Bursu (İlk %5)", card_captain:"Yılın Teknoloji Kaptanı İkincisi 2024", card_location:"Coventry, İngiltere · Sponsorluk Gerektirmez", card_research:"Raiven ile RAG Araştırması",
+  about_p1:"Güçlü matematik altyapısı ve pratik kurumsal deneyime sahip, sonuç odaklı bir YZ ve Makine Öğrenmesi Mühendisiyim. Şu anda Warwick Üniversitesi'nde Uygulamalı Yapay Zeka alanında yüksek lisans yapıyorum ve akademik ve mesleki mükemmelliği tanıyan rekabetçi WMG Mükemmellik Bursu'nu aldım (başvuranların ilk %5'i).",
+  about_p2:"Assan Bilişim'de (Kibar Holding, Türkiye) 3,5+ yıl boyunca enerji tahmini, bilgisayarlı görü kalite denetimi, kurumsal RAG sohbet botları, tahmine dayalı kalite modelleri ve lojistik optimizasyonu kapsayan üretim düzeyinde ML sistemleri tasarlayıp devreye aldım. Her proje ölçülebilir iş etkisi sağladı ve çalışmalarım 2024 Yılın Teknoloji Kaptanı İkincisi dahil 5 ulusal teknoloji ödülüyle tanındı.",
+  about_p3:"Mevcut araştırmam, endüstri ortağı Raiven ile işbirliği içinde İngiltere Planlama Politikası belgelerine bu teknikleri uygulayarak RAG sistemleri için gelişmiş gömme ve erişim stratejilerine odaklanıyor. Ayrıca Warwick'te yüksek lisans öğrencilerine RAG'a Giriş ve Gelişen RAG Teknolojileri konusunda konuk ders verdim.",
+  about_p4:"Şu anda İngiltere Öğrenci Vizesi sahibiyim. İngiltere Graduate Route vizesi için uygunum. 2 yıl boyunca sponsorluk gerektirmez. Eylül 2026 ortasından itibaren müsaitim.",
+  hl_ml:"Üretim ML", hl_ml_desc:"Veri mühendisliğinden dağıtım ve izlemeye kadar uçtan uca ML sistemleri", hl_rag:"Üretken YZ ve RAG", hl_rag_desc:"Azure OpenAI ve özel erişim stratejileriyle kurumsal RAG mimarileri", hl_cv:"Bilgisayarlı Görü", hl_cv_desc:"Üretimde <100ms gecikmeyle gerçek zamanlı hata tespiti", hl_ds:"Veri Bilimi", hl_ds_desc:"İstatistiksel modelleme, tahmin ve eyleme dönüştürülebilir iş içgörüleri",
+  exp_title:"Kurumsal YZ Çözümleri", exp_desc:"Büyük bir sanayi holdingindeki üretim ML sistemlerinden bir dijital ajanstaki arka uç geliştirmeye.",
+  role1:"Veri Bilimci / ML Mühendisi / Üretken YZ Mühendisi", role2:"Arka Uç Geliştirici (Staj)",
+  kbot_desc:"K-Bot'un tam yaşam döngüsünü yönettim; HR ve BT departmanlarında 1.200+ çalışana hizmet veren GPT-4 destekli bir RAG sohbet botu. Azure OpenAI Service, Microsoft Copilot Studio ve OpenAI Studio kullanarak özel bir RAG mimarisi tasarladım; çoklu gömme stratejileri, erişim yöntemleri ve parçalama teknikleri denedim. Sistemi politikalar, prosedürler ve BT dokümantasyonu dahil dahili bilgi tabanları üzerinde eğittim. Power Apps, Power Automate ve Azure AI Service uyguladım. Microsoft Teams ve SAP entegrasyonu ile dağıttım.",
+  kbot_impact:"Etki: Operasyonel iş yükünde %50 azalma · 3 kat daha hızlı bilgi erişimi · %85+ kullanıcı memnuniyeti · 3 ulusal teknoloji ödülü",
+  energy_desc:"Türkiye'nin ulusal elektrik tüketimi ve piyasa takas fiyatlarını tahmin etmek için üretim XGBoost regresyon modelleri geliştirdim. Azure'da Synapse Analytics, Azure ML ve MLflow entegre eden uçtan uca otomatik MLOps hattı oluşturdum. Azure DevOps ile CI/CD dağıtımı otomatikleştirdim. QlikSense panoları ile gerçek zamanlı KPI takibi sağladım.",
+  energy_impact:"Etki: %2 kar marjı artışı · £250K+ yıllık gelir artışı · %92 tahmin doğruluğu · %18 tahmin hatasında azalma · 2023 Yılın Projesi",
+  cv_title:"👁️ Bilgisayarlı Görü ile Hata Tespiti", cv_desc:"Üretim hatlarında yüzey ve yapısal hataların otomatik görsel denetimi için gerçek zamanlı YOLOv8 hata tespit sistemi geliştirdim. 15.000+ etiketli görüntü üzerinde eğitildi, %94 hassasiyet elde etti, <100ms gecikme ile ONNX formatında edge dağıtımı yapıldı.",
+  cv_impact:"Etki: Hata tespitinde %30 iyileşme · Manuel kalite kontrollerinin ortadan kaldırılması · Hatalı sevkiyatların önlenmesi",
+  quality_title:"🏭 Ürün Kalite Tahmini", quality_desc:"47 üretim parametresine dayalı olarak sevkiyat öncesi ürün kalite sonuçlarını tahmin etmek için %89 F1-skoru elde eden çok sınıflı XGBoost sınıflandırma modelleri geliştirdim. SAP ve Microsoft Fabric ile Flask API üzerinden entegre ettim.",
+  quality_impact:"Etki: Yeniden işlemede %23 azalma · Üretim gecikmelerinin minimuma indirilmesi · Hatalı sevkiyatların önlenmesi",
+  logistics_title:"📦 3D Lojistik Optimizasyonu", logistics_desc:"Sıra, ağırlık dağılımı, hacim kullanımı ve yük stabilitesi dahil çok boyutlu kısıtlamaları dengeleyen bir paketleme optimizasyon algoritması oluşturdum (200+ kısıt). SAP entegrasyonlu Flask API ile dağıttım.",
+  logistics_impact:"Etki: Kamyon kullanımında %15 iyileşme · Manuel planlamada %60 azalma · Tüm yurt içi sevkiyatların standardizasyonu",
+  frank_title:"💻 Ölçeklenebilir Web Uygulama Geliştirme", frank_desc:".NET Core kullanarak ölçeklenebilir web uygulamaları geliştirdim ve bakımını yaptım. Veritabanı yapıları oluşturdum ve optimize edilmiş SQL sorguları yazdım. UX tasarımcılarıyla işbirliği yaparak tasarım gereksinimlerini verimli sistem mantığına dönüştürdüm. Çevik ortamda uzaktan çalıştım.",
+  acad_title:"Araştırma, Ders Çalışmaları ve Öğretim", acad_desc:"Warwick Üniversitesi'nde tez araştırması, üstün ders çalışmaları ve konuk öğretim.",
+  badge_diss:"🔬 Tez (Devam Ediyor)", diss_title:"RAG Sistemleri için Gelişmiş Gömme ve Erişim Stratejileri", diss_module:"Raiven ile Endüstri İşbirliği",
+  diss_desc:"Gömme ve erişim stratejilerinin RAG tabanlı sistemlerin performansını nasıl iyileştirebileceğini araştırıyorum. İngiltere Planlama Politikası belgelerini alan-spesifik veri seti olarak kullanıyorum. Graph-RAG, hibrit erişim yöntemleri ve yeni bağlam oluşturma yaklaşımlarını keşfediyorum. Raiven çalışanlarıyla haftalık toplantılarla mimariyi tartışıyorum.",
+  coming_soon:"GitHub (Yakında)", wm9qg_title:"YZ ve Veri Madenciliğinin Temelleri", wm9qg_desc:"Hem grup uygulaması hem de bireysel uygulama için Üstün notlar aldım. YZ ve veri madenciliği çözümleri geliştirdim. Uluslararası öğrencilerle grup projesi için işbirliği yaptım.",
+  wm9qf_title:"Yapay Zeka için Programlama", wm9qf_desc:"Hem grup uygulaması hem de bireysel uygulama için Üstün notlar aldım. Yazılım mühendisliği ve makine öğrenmesi becerilerini sergileyen YZ programlama çözümleri oluşturdum. Uluslararası öğrencilerle grup projesi için işbirliği yaptım.",
+  lecture_title:"RAG'a Giriş ve Gelişen RAG Teknolojileri", lecture_desc:"Danışmanımla birlikte yüksek lisans öğrencilerine Retrieval-Augmented Generation, Graph-RAG ve RAG ekosistemindeki gelişen teknikleri kapsayan konuk ders verdim. Ders sunumunu ve eşlik eden GitHub kod örneklerini hazırladım.",
+  awards_title:"Başarılar ve Burslar", aw1:"Yılın Teknoloji Kaptanı İkincisi", aw2:"1. Sıra: Dijital Dönüşüm", aw3:"2. Sıra: Maliyet Optimizasyonu", aw4:"2. Sıra: İnovasyon", aw5:"Yılın Projesi: Dijital Dönüşüm", aw6:"WMG Mükemmellik Bursu", aw7:"3. Sıra: AWS PartyRock GenAI Hackathon",
+  view_cert:"📜 Sertifikayı Görüntüle", view_cert2:"📜 Sertifikayı Görüntüle",
+  edu_title:"Akademik Geçmiş", msc_degree:"Uygulamalı Yapay Zeka Yüksek Lisansı (Üstün Bekleniyor)", bsc_degree:"Matematik Mühendisliği Lisansı (Onur, GNO: 3.23/4.00)",
+  edu_scholarship:"WMG Mükemmellik Bursu 2025: akademik ve mesleki mükemmellik için liyakat tabanlı ödül",
+  edu_diss:"Tez: RAG Sistemleri için Gelişmiş Gömme ve Erişim Stratejileri (Raiven ile, İngiltere Planlama Politikası belgelerine uygulanmış)",
+  edu_modules:"Temel Dersler: İleri Makine Öğrenmesi, Derin Öğrenme, Doğal Dil İşleme, Bilgisayarlı Görü, MLOps, YZ Etiği",
+  edu_guest:"Konuk Öğretim Görevlisi: RAG'a Giriş ve Gelişen RAG Teknolojileri",
+  edu_ranking:"Mühendislik ve Teknoloji alanında dünya genelinde ilk 400'de", edu_thesis:"Tez: Derin Öğrenme Teknikleri ile Rahim Ağzı Kanseri Tespiti",
+  edu_core:"Temel Dersler: Lineer Cebir, İstatistik, Optimizasyon Yöntemleri, Sayısal Analiz, Derin Öğrenme", view_transcript:"📄 Transkripti Görüntüle",
+  skills_label:"Teknik Beceriler", skills_title:"Teknolojiler ve Araçlar", sk_prog:"Programlama", sk_enterprise:"Kurumsal Entegrasyon",
+  extra_label:"Ders Dışı", extra_title:"Kodun Ötesinde",
+  google_hack_desc:"11 uzmanlaşmış alt ajandan oluşan üst düzey bir YZ kodlama ajanı geliştirdim. Sistem kodun güvenliğini sağlayan, en iyi uygulamaları uygulayan ve etik ile güvenlik açığı kontrolleri içeren bir YZ kodlama asistanı olarak çalışıyor. WMG Uygulamalı YZ Yüksek Lisans programından uluslararası takım arkadaşlarıyla oluşturuldu.",
+  aws_hack_desc:"Sürdürülebilirlik Kategorisinde 3. olduk. Ev eşyalarının fotoğraflarını analiz eden, yerel atık kurallarını belirleyen ve yaratıcı geri dönüşüm önerileri sunan çok modlu bir YZ asistanı olan RE:GEN'i geliştirdik. WMG, Warwick Üniversitesi'ni temsilen Dilara Bayram ve Rahulsivanand S ile birlikte oluşturduk.",
+  guest_lect_title:"🎤 Konuk Öğretim Görevlisi: Warwick Üniversitesi", guest_lect_desc:"RAG'a Giriş ve Gelişen RAG Teknolojileri konusunda yüksek lisans düzeyinde konuk ders verdim. Sunum slaytlarını ve öğrenci kullanımı için GitHub kod deposunu hazırladım.",
+  mentor_title:"👩‍🏫 Mentorluk ve Liderlik", mentor_desc:"3 genç mühendise ML en iyi uygulamaları, Azure hizmetleri ve üretim dağıtım iş akışları konusunda mentorluk yaptım. Kibar Holding'de birden fazla kurumsal YZ projesinde lojistik, satış, İK, BT ve SAP ekipleriyle çapraz fonksiyonel koordinasyonu yönettim.",
+  personal_label:"Kişisel", personal_title:"İlgi Alanları ve Diller", hobbies_title:"Hobiler ve İlgi Alanları", languages_title:"Diller",
+  int_piano:"Piyano Çalma", int_nature:"Doğa Yürüyüşü", int_psych:"Psikoloji ve İnsan Davranışı", int_swim:"Yüzme", int_music:"Müzik ve Festivaller", int_camp:"Kamp", int_volley:"Voleybol",
+  lang_tr:"Türkçe", lang_en:"İngilizce", lang_native:"Ana Dil", lang_prof:"Profesyonel",
+  contact_title:"Birlikte Çalışalım", contact_desc:"Eylül 2026'dan itibaren müsait. İngiltere Graduate Route için uygun. Sponsorluk gerektirmez."
+},
+de: {
+  nav_about:"Über mich", nav_experience:"Erfahrung", nav_academic:"Akademisch", nav_awards:"Auszeichnungen", nav_education:"Ausbildung", nav_contact:"Kontakt",
+  hero_tag:"Verfügbar ab September 2026", hero_title_accent:"Ingenieurin", hero_sub:"Produktionsorientierte Ingenieurin mit 3,5+ Jahren Erfahrung in der Entwicklung von ML-Systemen für Unternehmen, RAG-Architekturen und Computer-Vision-Lösungen. MSc-Kandidatin für Angewandte KI an der University of Warwick und WMG Excellence-Stipendiatin.",
+  stat_systems:"Produktionssysteme", stat_global:"Globale Auszeichnung", stat_uk:"UK Nationale Auszeichnung", stat_turkey:"Türkische Nationale Auszeichnungen", stat_enterprise:"Unternehmensauszeichnung",
+  btn_contact:"Kontakt aufnehmen", btn_portfolio:"Portfolio ansehen", card_role:"KI/ML-Ingenieurin",
+  card_msc:"MSc Angewandte KI, University of Warwick", card_scholarship:"WMG Excellence-Stipendium (Top 5%)", card_captain:"Technologie-Kapitän Zweite 2024", card_location:"Coventry, UK · Kein Sponsoring erforderlich", card_research:"RAG-Forschung mit Raiven",
+  about_p1:"Ergebnisorientierte KI- und Machine-Learning-Ingenieurin mit starker mathematischer Grundlage und praktischer Unternehmenserfahrung. Derzeit im MSc Angewandte Künstliche Intelligenz an der University of Warwick, wo ich das kompetitive WMG Excellence-Stipendium erhielt (Top 5% der Bewerber).",
+  about_p2:"Über 3,5 Jahre bei Assan Bilişim (Kibar Holding, Türkei) habe ich produktionsreife ML-Systeme in den Bereichen Energieprognose, Computer-Vision-Qualitätsprüfung, Enterprise-RAG-Chatbots, prädiktive Qualitätsmodelle und Logistikoptimierung entworfen und eingesetzt. Meine Arbeit wurde mit 5 nationalen Technologiepreisen ausgezeichnet.",
+  about_p3:"Meine aktuelle Forschung konzentriert sich auf fortgeschrittene Embedding- und Retrieval-Strategien für RAG-Systeme, angewandt auf britische Planungsdokumente in Zusammenarbeit mit Raiven. Ich habe auch einen Gastvortrag über RAG-Einführung und neue RAG-Technologien gehalten.",
+  about_p4:"Derzeit im Besitz eines UK-Studentenvisums. Berechtigt für das UK Graduate Route Visum. Kein Sponsoring erforderlich für 2 Jahre. Verfügbar ab Mitte September 2026.",
+  hl_ml:"Produktions-ML", hl_ml_desc:"End-to-End ML-Systeme vom Data Engineering bis zur Bereitstellung", hl_rag:"GenAI & RAG", hl_rag_desc:"Enterprise-RAG-Architekturen mit Azure OpenAI", hl_cv:"Computer Vision", hl_cv_desc:"Echtzeit-Fehlererkennung mit <100ms Latenz in der Fertigung", hl_ds:"Data Science", hl_ds_desc:"Statistische Modellierung, Prognosen und umsetzbare Geschäftseinblicke",
+  exp_title:"Enterprise-KI-Lösungen", exp_desc:"Von ML-Produktionssystemen bei einem großen Industriekonzern bis zur Backend-Entwicklung bei einer Digitalagentur.",
+  role1:"Data Scientist / ML-Ingenieurin / GenAI-Ingenieurin", role2:"Backend-Entwicklerin (Praktikum)",
+  kbot_desc:"Leitete den gesamten Lebenszyklus von K-Bot, einem GPT-4-gestützten RAG-Chatbot für 1.200+ Mitarbeiter. Entwarf eine maßgeschneiderte RAG-Architektur mit Azure OpenAI Service, Microsoft Copilot Studio und OpenAI Studio. Experimentierte mit verschiedenen Embedding-Strategien, Retrieval-Methoden und Chunking-Techniken. Eingesetzt über Microsoft Teams und SAP-Integration.",
+  kbot_impact:"Wirkung: 50% Reduzierung der Arbeitslast · 3x schnellerer Informationszugang · 85%+ Nutzerzufriedenheit · 3 nationale Technologiepreise",
+  energy_desc:"Entwickelte XGBoost-Regressionsmodelle zur Prognose des nationalen Stromverbrauchs und der Marktpreise der Türkei. Baute eine automatisierte MLOps-Pipeline auf Azure mit Synapse Analytics, Azure ML und MLflow. Automatisierte CI/CD-Bereitstellung über Azure DevOps.",
+  energy_impact:"Wirkung: 2% Gewinnmargensteigerung · £250K+ jährlicher Umsatzanstieg · 92% Prognosegenauigkeit · Projekt des Jahres 2023",
+  cv_title:"👁️ Computer-Vision-Fehlererkennung", cv_desc:"Entwickelte ein Echtzeit-YOLOv8-System für automatische visuelle Inspektion von Fertigungsdefekten. Trainiert auf 15.000+ annotierten Bildern mit 94% Präzision, ONNX-Export für Edge-Deployment mit <100ms Latenz.",
+  cv_impact:"Wirkung: 30% Verbesserung der Fehlererkennung · Manuelle Qualitätskontrollen eliminiert",
+  quality_title:"🏭 Produktqualitätsprognose", quality_desc:"Entwickelte XGBoost-Klassifizierungsmodelle mit 89% F1-Score für die Vorhersage der Produktqualität vor dem Versand. Integration mit SAP über Flask API.",
+  quality_impact:"Wirkung: 23% weniger Nacharbeit · Minimierte Produktionsverzögerungen",
+  logistics_title:"📦 3D-Logistikoptimierung", logistics_desc:"Erstellte einen Bin-Packing-Optimierungsalgorithmus mit 200+ Einschränkungen. Bereitgestellt über Flask API mit SAP-Integration und interaktiver 3D-Visualisierung.",
+  logistics_impact:"Wirkung: 15% bessere LKW-Auslastung · 60% weniger manuelle Planung",
+  frank_title:"💻 Skalierbare Webanwendungsentwicklung", frank_desc:"Entwickelte und wartete skalierbare Webanwendungen mit .NET Core. Implementierte Datenbankstrukturen und optimierte SQL-Abfragen. Arbeitete remote in einem agilen Umfeld.",
+  acad_title:"Forschung, Studienarbeit & Lehre", acad_desc:"Dissertationsforschung, herausragende Studienarbeiten und Gastvorlesungen an der University of Warwick.",
+  badge_diss:"🔬 Dissertation (In Arbeit)", diss_title:"Fortgeschrittene Embedding- und Retrieval-Strategien für RAG-Systeme", diss_module:"Industriekooperation mit Raiven",
+  diss_desc:"Erforsche, wie Embedding- und Retrieval-Strategien die Leistung von RAG-Systemen verbessern können, unter Verwendung britischer Planungsdokumente als Datensatz. Wöchentliche Meetings mit Raiven.",
+  coming_soon:"GitHub (Demnächst)", wm9qg_title:"Grundlagen der KI und Data Mining", wm9qg_desc:"Hervorragende Noten für Gruppen- und Einzelarbeit. Entwickelte KI- und Data-Mining-Lösungen. Zusammenarbeit mit internationalen Studierenden.",
+  wm9qf_title:"Programmierung für Künstliche Intelligenz", wm9qf_desc:"Hervorragende Noten für Gruppen- und Einzelarbeit. KI-Programmierlösungen mit Software-Engineering und ML-Fähigkeiten. Zusammenarbeit mit internationalen Studierenden.",
+  lecture_title:"Einführung in RAG und neue RAG-Technologien", lecture_desc:"Hielt einen Gastvortrag über RAG, Graph-RAG und neue Techniken im RAG-Ökosystem. Erstellte Präsentation und GitHub-Codebeispiele.",
+  awards_title:"Erfolge & Stipendien", aw1:"Zweite Technologie-Kapitänin des Jahres", aw2:"1. Platz: Digitale Transformation", aw3:"2. Platz: Kostenoptimierung", aw4:"2. Platz: Innovation", aw5:"Projekt des Jahres: Digitale Transformation", aw6:"WMG Excellence-Stipendium", aw7:"3. Platz: AWS PartyRock GenAI Hackathon",
+  view_cert:"📜 Zertifikat ansehen", view_cert2:"📜 Zertifikat ansehen",
+  edu_title:"Akademischer Hintergrund", msc_degree:"MSc Angewandte Künstliche Intelligenz (Auszeichnung erwartet)", bsc_degree:"BSc Mathematische Ingenieurwissenschaften (GPA: 3,23/4,00)",
+  edu_scholarship:"WMG Excellence-Stipendium 2025: leistungsbasierte Auszeichnung", edu_diss:"Dissertation: Fortgeschrittene Embedding- und Retrieval-Strategien für RAG-Systeme (mit Raiven)",
+  edu_modules:"Kernmodule: Fortgeschrittenes ML, Deep Learning, NLP, Computer Vision, MLOps, KI-Ethik", edu_guest:"Gastdozentin: Einführung in RAG und neue RAG-Technologien",
+  edu_ranking:"Weltweit in den Top 400 für Ingenieurwesen & Technologie", edu_thesis:"Thesis: Erkennung von Gebärmutterhalskrebs mittels Deep Learning", edu_core:"Kernmodule: Lineare Algebra, Statistik, Optimierung, Numerische Analyse, Deep Learning", view_transcript:"📄 Transkript ansehen",
+  skills_label:"Technische Fähigkeiten", skills_title:"Technologien & Tools", sk_prog:"Programmierung", sk_enterprise:"Unternehmensintegration",
+  extra_label:"Außercurricular", extra_title:"Jenseits des Codes",
+  google_hack_desc:"Entwickelte einen KI-Coding-Agenten mit 11 spezialisierten Sub-Agenten. Das System sichert Code, setzt Best Practices durch und umfasst Ethik- und Sicherheitsprüfungen. Mit internationalen Teammitgliedern des WMG MSc Programms entwickelt.",
+  aws_hack_desc:"3. Platz im Sustainability Track. Entwickelten RE:GEN, einen multimodalen KI-Assistenten für Abfallentsorgung und kreatives Upcycling. Entwickelt mit Dilara Bayram und Rahulsivanand S für WMG, University of Warwick.",
+  guest_lect_title:"🎤 Gastdozentin: University of Warwick", guest_lect_desc:"Hielt einen MSc-Gastvortrag über RAG-Einführung und neue RAG-Technologien. Erstellte Präsentationsfolien und GitHub-Repository.",
+  mentor_title:"👩‍🏫 Mentoring & Führung", mentor_desc:"Mentoring von 3 Nachwuchsingenieuren in ML-Best-Practices und Azure-Services. Leitete funktionsübergreifende Koordination bei Kibar Holding.",
+  personal_label:"Persönlich", personal_title:"Interessen & Sprachen", hobbies_title:"Hobbys & Interessen", languages_title:"Sprachen",
+  int_piano:"Klavier spielen", int_nature:"Naturwandern", int_psych:"Psychologie & menschliches Verhalten", int_swim:"Schwimmen", int_music:"Musik & Festivals", int_camp:"Camping", int_volley:"Volleyball",
+  lang_tr:"Türkisch", lang_en:"Englisch", lang_native:"Muttersprache", lang_prof:"Professionell",
+  contact_title:"Zusammenarbeiten", contact_desc:"Verfügbar ab September 2026. Berechtigt für UK Graduate Route. Kein Sponsoring erforderlich."
+},
+es: {
+  nav_about:"Sobre mí", nav_experience:"Experiencia", nav_academic:"Académico", nav_awards:"Premios", nav_education:"Educación", nav_contact:"Contacto",
+  hero_tag:"Disponible desde Septiembre 2026", hero_title_accent:"Ingeniera", hero_sub:"Ingeniera enfocada en producción con 3,5+ años construyendo sistemas ML empresariales, arquitecturas RAG y soluciones de visión por computadora. Candidata a MSc en IA Aplicada en la Universidad de Warwick y becaria de Excelencia WMG.",
+  stat_systems:"Sistemas en Producción", stat_global:"Premio Global", stat_uk:"Premio Nacional UK", stat_turkey:"Premios Nacionales Turquía", stat_enterprise:"Premio Empresarial",
+  btn_contact:"Contactar", btn_portfolio:"Ver Portafolio", card_role:"Ingeniera IA/ML",
+  card_msc:"MSc IA Aplicada, Universidad de Warwick", card_scholarship:"Beca de Excelencia WMG (Top 5%)", card_captain:"Subcampeona Capitana Tecnológica 2024", card_location:"Coventry, UK · Sin patrocinio requerido", card_research:"Investigación RAG con Raiven",
+  about_p1:"Ingeniera de IA y Machine Learning orientada a resultados con sólida base matemática y experiencia empresarial práctica. Actualmente cursando un MSc en Inteligencia Artificial Aplicada en la Universidad de Warwick, donde recibí la competitiva Beca de Excelencia WMG (top 5% de solicitantes).",
+  about_p2:"Durante más de 3,5 años en Assan Bilişim (Kibar Holding, Turquía), diseñé y desplegué sistemas ML de producción en previsión energética, inspección de calidad por visión artificial, chatbots RAG empresariales, modelos de calidad predictiva y optimización logística. Mi trabajo fue reconocido con 5 premios nacionales de tecnología.",
+  about_p3:"Mi investigación actual se centra en estrategias avanzadas de embedding y recuperación para sistemas RAG, aplicadas a documentos de planificación del Reino Unido en colaboración con Raiven. También impartí una clase magistral sobre RAG y tecnologías emergentes.",
+  about_p4:"Actualmente con Visa de Estudiante UK. Elegible para la ruta Graduate del Reino Unido. Sin patrocinio requerido por 2 años. Disponible desde mediados de septiembre 2026.",
+  hl_ml:"ML en Producción", hl_ml_desc:"Sistemas ML de extremo a extremo, desde ingeniería de datos hasta despliegue", hl_rag:"GenAI y RAG", hl_rag_desc:"Arquitecturas RAG empresariales con Azure OpenAI", hl_cv:"Visión por Computadora", hl_cv_desc:"Detección de defectos en tiempo real con <100ms de latencia", hl_ds:"Ciencia de Datos", hl_ds_desc:"Modelado estadístico, pronósticos e insights de negocio",
+  exp_title:"Soluciones de IA Empresarial", exp_desc:"Desde sistemas ML de producción en un gran conglomerado industrial hasta desarrollo backend en una agencia digital.",
+  role1:"Científica de Datos / Ingeniera ML / Ingeniera GenAI", role2:"Desarrolladora Backend (Prácticas)",
+  kbot_desc:"Lideré el ciclo completo de K-Bot, un chatbot RAG potenciado por GPT-4 que sirve a 1.200+ empleados. Diseñé una arquitectura RAG personalizada con Azure OpenAI Service, Microsoft Copilot Studio y OpenAI Studio, experimentando con múltiples estrategias de embedding, métodos de recuperación y técnicas de fragmentación. Desplegado vía Microsoft Teams e integración SAP.",
+  kbot_impact:"Impacto: 50% reducción de carga operativa · 3x acceso más rápido a información · 85%+ satisfacción · 3 premios nacionales",
+  energy_desc:"Desarrollé modelos XGBoost de regresión para pronosticar el consumo eléctrico nacional de Turquía. Construí un pipeline MLOps automatizado en Azure con Synapse Analytics, Azure ML y MLflow. Automaticé CI/CD con Azure DevOps. Creé dashboards QlikSense para reportes en tiempo real.",
+  energy_impact:"Impacto: 2% aumento en margen de ganancia · £250K+ aumento anual de ingresos · 92% precisión de pronóstico · Proyecto del Año 2023",
+  cv_title:"👁️ Detección de Defectos por Visión Artificial", cv_desc:"Desarrollé un sistema YOLOv8 en tiempo real para inspección visual automatizada de defectos en líneas de producción. Entrenado en 15.000+ imágenes anotadas con 94% de precisión, exportado a ONNX para despliegue edge con <100ms de latencia.",
+  cv_impact:"Impacto: 30% mejora en detección de defectos · Eliminación de controles manuales",
+  quality_title:"🏭 Predicción de Calidad de Producto", quality_desc:"Desarrollé modelos XGBoost de clasificación multiclase con 89% F1-score para predicción de calidad pre-envío. Integrado con SAP vía Flask API.",
+  quality_impact:"Impacto: 23% reducción en retrabajo · Minimización de retrasos de producción",
+  logistics_title:"📦 Optimización Logística 3D", logistics_desc:"Creé un algoritmo de optimización bin-packing con 200+ restricciones. Desplegado vía Flask API con integración SAP y visualización 3D interactiva.",
+  logistics_impact:"Impacto: 15% mejora en utilización de camiones · 60% reducción en planificación manual",
+  frank_title:"💻 Desarrollo de Aplicaciones Web Escalables", frank_desc:"Desarrollé aplicaciones web escalables con .NET Core. Implementé estructuras de bases de datos y consultas SQL optimizadas. Colaboré con diseñadores UX. Trabajé remotamente en ambiente ágil.",
+  acad_title:"Investigación, Trabajos y Docencia", acad_desc:"Investigación de tesis, trabajos sobresalientes y docencia invitada en la Universidad de Warwick.",
+  badge_diss:"🔬 Tesis (En Progreso)", diss_title:"Estrategias Avanzadas de Embedding y Recuperación para Sistemas RAG", diss_module:"Colaboración Industrial con Raiven",
+  diss_desc:"Investigando cómo las estrategias de embedding y recuperación pueden mejorar el rendimiento de sistemas RAG, usando documentos de planificación del Reino Unido. Explorando Graph-RAG y métodos de recuperación híbridos. Reuniones semanales con Raiven.",
+  coming_soon:"GitHub (Próximamente)", wm9qg_title:"Fundamentos de IA y Minería de Datos", wm9qg_desc:"Obtuve calificaciones Sobresalientes en trabajo grupal e individual. Desarrollé soluciones de IA y minería de datos. Colaboración con estudiantes internacionales.",
+  wm9qf_title:"Programación para Inteligencia Artificial", wm9qf_desc:"Obtuve calificaciones de Distinción en trabajo grupal e individual. Construí soluciones de programación IA. Colaboración con estudiantes internacionales.",
+  lecture_title:"Introducción a RAG y Tecnologías RAG Emergentes", lecture_desc:"Impartí una clase magistral sobre RAG, Graph-RAG y técnicas emergentes. Creé la presentación y ejemplos de código en GitHub.",
+  awards_title:"Logros y Becas", aw1:"Subcampeona Capitana Tecnológica del Año", aw2:"1er Lugar: Transformación Digital", aw3:"2do Lugar: Optimización de Costos", aw4:"2do Lugar: Innovación", aw5:"Proyecto del Año: Transformación Digital", aw6:"Beca de Excelencia WMG", aw7:"3er Lugar: AWS PartyRock GenAI Hackathon",
+  view_cert:"📜 Ver Certificado", view_cert2:"📜 Ver Certificado",
+  edu_title:"Formación Académica", msc_degree:"MSc Inteligencia Artificial Aplicada (Distinción Esperada)", bsc_degree:"BSc Ingeniería Matemática (Honores, GPA: 3.23/4.00)",
+  edu_scholarship:"Beca de Excelencia WMG 2025: premio basado en mérito", edu_diss:"Tesis: Estrategias Avanzadas de Embedding y Recuperación para Sistemas RAG (con Raiven)",
+  edu_modules:"Módulos Clave: ML Avanzado, Deep Learning, NLP, Visión por Computadora, MLOps, Ética IA", edu_guest:"Docente Invitada: Introducción a RAG y Tecnologías RAG Emergentes",
+  edu_ranking:"Clasificada en el Top 400 mundial en Ingeniería y Tecnología", edu_thesis:"Tesis: Detección de Cáncer Cervical Usando Técnicas de Deep Learning", edu_core:"Módulos Principales: Álgebra Lineal, Estadística, Optimización, Análisis Numérico, Deep Learning", view_transcript:"📄 Ver Expediente",
+  skills_label:"Habilidades Técnicas", skills_title:"Tecnologías y Herramientas", sk_prog:"Programación", sk_enterprise:"Integración Empresarial",
+  extra_label:"Extracurricular", extra_title:"Más Allá del Código",
+  google_hack_desc:"Desarrollé un agente de codificación IA con 11 sub-agentes especializados. El sistema asegura código, aplica mejores prácticas e incluye verificaciones de ética y seguridad. Construido con compañeros internacionales del MSc en IA Aplicada de WMG.",
+  aws_hack_desc:"3er lugar en el Track de Sostenibilidad. Desarrollamos RE:GEN, un asistente IA multimodal que analiza fotos de artículos del hogar y proporciona sugerencias de reciclaje creativo. Construido con Dilara Bayram y Rahulsivanand S de WMG, Universidad de Warwick.",
+  guest_lect_title:"🎤 Docente Invitada: Universidad de Warwick", guest_lect_desc:"Impartí una clase magistral de MSc sobre RAG y tecnologías emergentes. Creé las diapositivas y el repositorio GitHub para los estudiantes.",
+  mentor_title:"👩‍🏫 Mentoría y Liderazgo", mentor_desc:"Mentoré a 3 ingenieros junior en mejores prácticas ML y servicios Azure. Lideré la coordinación interfuncional en Kibar Holding.",
+  personal_label:"Personal", personal_title:"Intereses e Idiomas", hobbies_title:"Hobbies e Intereses", languages_title:"Idiomas",
+  int_piano:"Tocar Piano", int_nature:"Caminatas en la Naturaleza", int_psych:"Psicología y Comportamiento Humano", int_swim:"Natación", int_music:"Música y Festivales", int_camp:"Camping", int_volley:"Voleibol",
+  lang_tr:"Turco", lang_en:"Inglés", lang_native:"Nativo", lang_prof:"Profesional",
+  contact_title:"Trabajemos Juntos", contact_desc:"Disponible desde septiembre 2026. Elegible para UK Graduate Route. Sin patrocinio requerido."
+}
+};
+
+function switchLang(lang) {
+  document.documentElement.lang = lang === 'tr' ? 'tr' : lang === 'de' ? 'de' : lang === 'es' ? 'es' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (lang === 'en') {
+      if (el._originalText) el.textContent = el._originalText;
+    } else {
+      if (!el._originalText) el._originalText = el.textContent;
+      if (T[lang] && T[lang][key]) el.textContent = T[lang][key];
+    }
+  });
+  langBtn.textContent = langFlags[lang] + ' ' + langCodes[lang] + ' ▾';
+  document.querySelectorAll('.lang-option').forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
+  langDropdown.classList.remove('open');
+}
+
+document.querySelectorAll('.lang-option').forEach(opt => {
+  opt.addEventListener('click', (e) => { e.stopPropagation(); switchLang(opt.dataset.lang); });
+});
 </script>
 </body>
 </html>
